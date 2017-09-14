@@ -1,0 +1,50 @@
+<html>
+    <head>
+		<title>TOWER</title>
+        <!--load scripts--> 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>		
+		<script type="text/javascript" src="character.js"></script>
+		<script type="text/javascript" src="item.js"></script>
+		<script type="text/javascript" src="plaza.js"></script>
+		<script type="text/javascript" src="npc.js"></script>
+		<script type="text/javascript" src="variables.js"></script>
+		<script type="text/javascript" src="game.js"></script>
+    </head>
+    <!-- 
+        render canvas into body, alternative you can use div, but disable 
+        right click and hide cursor on parent div
+    -->
+    <body>
+        <div id="hud">
+			<span id="gold">Gold: 0</span>
+			<span id="exp">Exp: 0</span>
+			<span id="hp">HP: 0</span>
+			<span id="atk">ATK: 0</span>
+			<span id="def">DEF: 0</span>
+			<span id="spd">SPD: 0</span>
+			<span id="wis">WIS: 0</span>
+		</div>
+		<div id="controls">
+			<a href="#" id="reset">Reset</a>
+			<a href="#" id="training">Training</a>
+			<a href="#" id="plaza">Plaza</a>
+			<a href="#" id="inventory">Inventory</a>
+			<a href="#" id="character">Character</a>
+		</div>
+		<div id="content">
+			<div id="trainingContent" class="content" style="display:none;">
+				<span>TRAINING</span><br /><div id="trainingLog"></div>
+			</div>
+			<div id="plazaContent" class="content" style="display:none;">
+				<span>PLAZA</span><br />
+			</div>
+			<div id="inventoryContent" class="content" style="display:none;">
+				<span>INVENTORY</span><br />
+			</div>
+			<div id="characterContent" class="content" style="display:none;">
+				<span>CHARACTER</span><br />
+			</div>
+		</div>
+    </body>
+</html>
