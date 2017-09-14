@@ -4,13 +4,16 @@ function CreateItem() {
 		Gold : 0,
 		IsConsumable: false,
 		IsEquippable: false,
+		Equipped: false,
 		ConsumableExp: 0,
 		ConsumableCurrentHP: 0,
 		ConsumableHP: 0,
 		ConsumableATK: 0,
 		ConsumableDEF: 0,
 		ConsumableSPD: 0,
-		ConsumableWIS: 0
+		ConsumableWIS: 0,
+		ATK: 0,
+		WIS: 0
 	};
 }
 
@@ -27,29 +30,51 @@ function GetItemInventoryUI(item, id) {
 			Use(JSON.parse($(this).attr('data-item')));
 		});
 	}
+	else if (item.IsEquippable && !item.Equipped) {
+		itemUI.find('#item' + id + 'Label').append("<a href='#' class='equip' data-item='" + JSON.stringify(item) + "'>equip</a>&nbsp;&nbsp;");
+		itemUI.find('a.equip').click(function() {
+			Equip(JSON.parse($(this).attr('data-item')));
+		});
+	}
+	else if (item.IsEquippable && item.Equipped) {
+		itemUI.find('#item' + id + 'Label').append("<a href='#' class='unequip' data-item='" + JSON.stringify(item) + "'>unequip</a>&nbsp;&nbsp;");
+		itemUI.find('a.unequip').click(function() {
+			Unequip(JSON.parse($(this).attr('data-item')));
+		});
+	}
 	return itemUI;
 }
 
 function GetItemShopUI(item, id) {
-	var itemUI = $("<div id='item" + id + "'><span id='item" + id + "Label'></span><a href='#' data-item='" + JSON.stringify(item) + "'>buy</a></div>");
+	var itemUI = $("<div id='item" + id + "'><span id='item" + id + "Label'></span><button type='button' class='btn' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i> buy</a></div>");
 	itemUI.find('#item' + id + 'Label').text(item.Name + " - Price = " + item.Gold + "g  ");
-	itemUI.find('a').click(function() {
+	itemUI.find('button').click(function() {
 		Buy(JSON.parse($(this).attr('data-item')), 1);
 	});	
 	
 	if (gold >= item.Gold * 10) {
-		itemUI.find('#item' + id + 'Label').append("<a href='#' class='buy10' data-item='" + JSON.stringify(item) + "'>buy x10</a>&nbsp;&nbsp;");
-		itemUI.find('a.buy10').click(function() {
+		itemUI.find('#item' + id + 'Label').append("<button type='button' class='btn buy10' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i> buy x10</a>&nbsp;&nbsp;");
+		itemUI.find('button.buy10').click(function() {
 			Buy(JSON.parse($(this).attr('data-item')), 10);
 		});
 	}	
 	
 	if (gold >= item.Gold * 100) {
-		itemUI.find('#item' + id + 'Label').append("<a href='#' class='buy100' data-item='" + JSON.stringify(item) + "'>buy x100</a>&nbsp;&nbsp;");
-		itemUI.find('a.buy100').click(function() {
+		itemUI.find('#item' + id + 'Label').append("<button type='button' class='btn buy100' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i> buy x100</a>&nbsp;&nbsp;");
+		itemUI.find('button.buy100').click(function() {
 			Buy(JSON.parse($(this).attr('data-item')), 100);
 		});
 	}
+	return itemUI;
+}
+
+function GetItemEquipmentUI(item, id) {
+	var itemUI = $("<div id='item" + id + "'><span id='item" + id + "Label'></span><button type='button' class='btn' data-item='" + JSON.stringify(item) + "'>unequip</a></div>");
+	itemUI.find('#item' + id + 'Label').text(item.Name + " - ATK = " + item.ATK + " - WIS = " + item.WIS);
+	itemUI.find('button').click(function() {
+	console.log('uhuh');
+		Unequip(JSON.parse($(this).attr('data-item')), 1);
+	});	
 	return itemUI;
 }
 
@@ -89,6 +114,31 @@ function Use(item) {
 	inventory.splice( $.inArray(item, inventory), 1 );	
 	UpdateVariablesUI();
 	InitializeInventory();	
+}
+
+function Equip(item) {	
+	battleInventory.push(item);	
+	item.Equipped = true;
+	ChangeItem(item.Name, item);
+	UpdateEquipmentUI();
+	InitializeInventory();		
+}
+
+function Unequip(item) {	
+	battleInventory.splice( $.inArray(item, battleInventory), 1 );		
+	item.Equipped = false;
+	ChangeItem(item.Name, item);
+	UpdateEquipmentUI();
+	InitializeInventory();	
+}
+
+function ChangeItem( name, item ) {
+   for (var i in inventory) {
+     if (inventory[i].Name == name) {
+        inventory[i] = item;
+        break; //Stop this loop, we found it!
+     }
+   }
 }
 	
 function InitializeInventory() {

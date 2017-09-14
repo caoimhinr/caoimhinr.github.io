@@ -1,6 +1,8 @@
 <html>
     <head>
 		<title>TOWER</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <!--load scripts--> 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>		
@@ -9,6 +11,7 @@
 		<script type="text/javascript" src="plaza.js"></script>
 		<script type="text/javascript" src="npc.js"></script>
 		<script type="text/javascript" src="variables.js"></script>
+		<script type="text/javascript" src="battle.js"></script>
 		<script type="text/javascript" src="game.js"></script>
     </head>
     <!-- 
@@ -25,13 +28,18 @@
 			<span id="spd">SPD: 0</span>
 			<span id="wis">WIS: 0</span>
 		</div>
-		<div id="controls">
-			<a href="#" id="reset">Reset</a>
-			<a href="#" id="training">Training</a>
-			<a href="#" id="plaza">Plaza</a>
-			<a href="#" id="inventory">Inventory</a>
-			<a href="#" id="character">Character</a>
+		<hr>
+		<div id="equipment">
 		</div>
+		<hr>
+		<div id="controls">
+			<button type="button" class="btn btn-danger" id="reset"><i class="fa fa-recycle" aria-hidden="true"></i> Reset</button>
+			<button type="button" class="btn" id="training"><i class="fa fa-users" aria-hidden="true"></i> Training</button>
+			<button type="button" class="btn" id="plaza"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Plaza</button>
+			<button type="button" class="btn" id="inventory"><i class="fa fa-suitcase" aria-hidden="true"></i> Inventory</button>
+			<button type="button" class="btn" id="character"><i class="fa fa-male" aria-hidden="true"></i> Character</button>
+		</div>
+		<hr>
 		<div id="content">
 			<div id="trainingContent" class="content" style="display:none;">
 				<span>TRAINING</span><br /><div id="trainingLog"></div>

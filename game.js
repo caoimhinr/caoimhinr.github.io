@@ -2,20 +2,23 @@
 	$(document).ready(function() {
 		LoadGameState();
 		UpdateVariablesUI();
+		UpdateEquipmentUI();
 		$('#training').click(function() {
 			HideAllContent();
 			$('#trainingContent').html('<span>TRAINING</span><br /><div id="trainingLog"></div>');
+			battleInventoryIndex = 0;
 			if (currentHP <= 0) {
 				$('#trainingContent').show();
 				TrainingLog("You cannot train with 0HP.");
 			} else {
 				currentEnemy = CreateNPC();
 				currentEnemy.Name = "Peasant";
-				currentEnemy.HP = 100;
+				currentEnemy.HP = 200;
 				currentEnemy.CurrentHP = currentEnemy.HP;
 				currentEnemy.ATK = 1;
 				currentEnemy.EXP = 10;
 				currentEnemy.Gold = 50;
+				currentEnemy.SPD = 10;
 				isTraining = true;
 				$('#trainingContent').show();
 				TrainingLog(currentEnemy.Name + " appears.");
@@ -56,50 +59,7 @@
 		
 		if (isTraining && 
 			typeof(currentEnemy !== "undefined")) {
-			var speedMod = 5 - spd;
-			if (battleTimer % speedMod == 0) {
-				if (spd >= currentEnemy.SPD) {
-					currentEnemy.CurrentHP -= atk;
-					currentHP -= currentEnemy.ATK;	
-
-					if (currentEnemy.CurrentHP <= 0) {
-						currentEnemy.CurrentHP = 0;
-						isTraining = false;
-					} else if (currentHP <= 0) {
-						currentHP = 0;
-						isTraining = false;
-					}	
-					TrainingLog("You attack enemy " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")");									
-					TrainingLog("Enemy " + currentEnemy.Name + " attacks you. (" + currentHP + "/" + hp + ")");
-				} else {
-					currentHP -= currentEnemy.ATK;
-					currentEnemy.CurrentHP -= atk;
-					
-					if (currentEnemy.CurrentHP <= 0) {
-						currentEnemy.CurrentHP = 0;
-						isTraining = false;
-					} else if (currentHP <= 0) {
-						currentHP = 0;
-						isTraining = false;
-					}								
-					TrainingLog("Enemy " + currentEnemy.Name + " attacks you. (" + currentHP + "/" + hp + ")");	
-					TrainingLog("You attack enemy " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")");	
-				}
-								
-				if (!isTraining) {
-					if (currentEnemy.CurrentHP == 0) {
-						exp += currentEnemy.EXP;
-						gold += currentEnemy.Gold;
-						TrainingLog("You defeated " + currentEnemy.Name + " and gained " + currentEnemy.EXP + " Exp and " + currentEnemy.Gold + " gold.");						
-					} else {
-						var goldLost = gold * 0.5;
-						gold -= goldLost;
-						exp += 5;
-						TrainingLog("You were defeated by " + currentEnemy.Name + " and lost " + goldLost + " gold.");						
-					}
-				}
-			}
-			battleTimer += 1;
+			BattleTraining();
 		}
 		
 		goldTimer += 1;
@@ -109,10 +69,6 @@
 	
 	function HideAllContent() {
 		$('.content').hide();
-	}
-	
-	function TrainingLog(message) {
-		$('#trainingLog').prepend("<p>" + message + "</p>");
 	}
 	
 	

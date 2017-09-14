@@ -24,7 +24,14 @@ function UpdateVariablesUI() {
 	$('#atk').text("ATK: " + atk);
 	$('#def').text("DEF: " + def);
 	$('#spd').text("SPD: " + spd);
-	$('#wis').text("WIS: " + wis);	
+	$('#wis').text("WIS: " + wis);		
+}
+
+function UpdateEquipmentUI() {
+	$('#equipment').html('');
+	$.each(battleInventory, function(i, e) {
+		$('#equipment').append(GetItemEquipmentUI(e, 1));
+	});
 }
 
 function ResetVariables() {
@@ -44,6 +51,7 @@ function ResetVariables() {
 function SaveGameState() {
 	Cookies.set('variables', { gold: gold, exp: exp, totalExp: totalExp, hp: hp, currentHP : currentHP, atk: atk, def: def, spd: spd, wis: wis });
 	Cookies.set('inventory', inventory);
+	Cookies.set('battleInventory', battleInventory);
 	Cookies.set('stats', stats);
 }
 
@@ -60,12 +68,18 @@ function LoadGameState() {
 	if (isNaN(variablesCookie.spd)) { spd = 1; } else { spd = parseInt(variablesCookie.spd); }
 	if (isNaN(variablesCookie.wis)) { wis = 0; } else { wis = parseInt(variablesCookie.wis); }
 	
-	var inventoryCookie = Cookies.getJSON('inventory');
-	
+	var inventoryCookie = Cookies.getJSON('inventory');	
 	if (typeof(inventoryCookie) !== 'undefined') {
 		inventory = inventoryCookie;
 	} else {
 		inventory = [];
+	}
+	
+	var battleInventoryCookie = Cookies.getJSON('battleInventory');	
+	if (typeof(battleInventoryCookie) !== 'undefined') {
+		battleInventory = battleInventoryCookie;
+	} else {
+		battleInventory = [];
 	}
 		
 	var statHP = CreateStat();
@@ -114,3 +128,14 @@ var currentEnemy = {};
 var battleTimer = 0;
 
 var inventory = [];
+var battleInventory = [];
+var battleInventoryIndex = 0;
+
+function GetNextBattleInventoryItem() {
+	var item = battleInventory[battleInventoryIndex];
+	battleInventoryIndex += 1;
+	if (battleInventoryIndex + 1 > battleInventory.length) {
+		battleInventoryIndex = 0;
+	}
+	return item;
+}
