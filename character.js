@@ -3,7 +3,7 @@ function CreateStat() {
 		Name : "",
 		Value : 0,
 		Cost : 0,
-		CostIncrease : 0.5
+		CostIncrease : 0.1
 	};
 }
 
@@ -19,7 +19,7 @@ function GetStatUI(stat, id) {
 function Upgrade(stat) {
 	if (exp >= stat.Cost) {
 		exp = exp - stat.Cost;
-		stat.Cost = stat.Cost + stat.Cost * stat.CostIncrease;	
+		stat.Cost = Math.ceil(stat.Cost + stat.Cost * stat.CostIncrease);	
 		stat.Value = stat.Value + 1;
 				
 		ChangeStat(stat.Name, stat);

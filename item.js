@@ -65,7 +65,7 @@ function Buy(item, amount) {
 }
 
 function Sell(item) {
-	var value = item.Gold * 0.10;
+	var value = Math.ceil(item.Gold * 0.10);
 	if (value < 1)
 		value = 1;
 	gold = gold + value;	

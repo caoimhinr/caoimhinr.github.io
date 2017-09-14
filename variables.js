@@ -1,4 +1,5 @@
 var gold = 0;
+var goldTimer = 0;
 var exp = 0;
 var totalExp = 0;
 
@@ -36,6 +37,7 @@ function ResetVariables() {
 	spd = 1;
 	wis = 0;
 	inventory = [];
+	stats = [];
 	UpdateVariablesUI();
 }
 	
@@ -70,35 +72,35 @@ function LoadGameState() {
 	statHP.Name = "HP";
 	statHP.Value = hp;
 	statHP.Cost = 10;
-	statHP.CostIncrease = 0.5;
+	statHP.CostIncrease = 0.1;
 	stats.push(statHP);
 	
 	var statATK = CreateStat();
 	statATK.Name = "ATK";
 	statATK.Value = atk;
 	statATK.Cost = 10;
-	statATK.CostIncrease = 0.5;
+	statATK.CostIncrease = 0.1;
 	stats.push(statATK);
 	
 	var statDEF = CreateStat();
 	statDEF.Name = "DEF";
 	statDEF.Value = def;
 	statDEF.Cost = 10;
-	statDEF.CostIncrease = 0.5;
+	statDEF.CostIncrease = 0.1;
 	stats.push(statDEF);
 	
 	var statSPD = CreateStat();
 	statSPD.Name = "SPD";
 	statSPD.Value = spd;
 	statSPD.Cost = 10;
-	statSPD.CostIncrease = 0.5;
+	statSPD.CostIncrease = 0.1;
 	stats.push(statSPD);
 	
 	var statWIS = CreateStat();
 	statWIS.Name = "WIS";
 	statWIS.Value = wis;
 	statWIS.Cost = 10;
-	statWIS.CostIncrease = 0.5;
+	statWIS.CostIncrease = 0.1;
 	stats.push(statWIS);
 		
 	var statsCookie = Cookies.getJSON('stats');

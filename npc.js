@@ -6,6 +6,8 @@ function CreateNPC() {
 		ATK : 0,
 		DEF : 0,
 		SPD : 0,
-		WIS : 0
+		WIS : 0,
+		EXP : 0,
+		Gold : 0
 	};
 }
