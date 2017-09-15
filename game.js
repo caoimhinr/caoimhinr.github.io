@@ -45,7 +45,10 @@
 			typeof(currentEnemy !== "undefined")) {
 			BattleTraining();
 		} else if (currentHP < hp) {
-			currentHP += Math.ceil(currentHP * regenRate);
+			if (currentHP == 0) {
+				currentHP = 1;
+			}
+			currentHP += Math.ceil(currentHP * regenRate);			
 			if (currentHP >= hp) {
 				currentHP = hp;
 			}
