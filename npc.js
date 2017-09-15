@@ -1,4 +1,4 @@
-function CreateNPC() {
+function NPC() {
 	return {
 		Id : 0,
 		Name : "",

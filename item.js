@@ -1,4 +1,4 @@
-function CreateItem() {
+function Item() {
 	return {
 		Id : 0,
 		Name : "",

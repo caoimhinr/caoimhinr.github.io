@@ -1,4 +1,4 @@
-function CreateCombo() {
+function Combo() {
 	return {
 		Id : 0,
 		Name : "",
