@@ -1,0 +1,20 @@
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.exe.config
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.exe
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.pdb
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.dll
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.dll
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.EF6.dll
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.Linq.dll
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.xml
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.xml
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.csprojResolveAssemblyReference.cache
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.Form1.resources
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.Properties.Resources.resources
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.csproj.GenerateResource.Cache
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.exe
+c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.pdb
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.exe.config
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.exe
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.pdb
