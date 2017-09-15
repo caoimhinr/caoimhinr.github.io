@@ -1,3 +1,22 @@
+function InitializeTraining() {
+	battleInventoryIndex = 0;
+	comboLevel = 0;
+	for (var i in battleInventory) {     
+        battleInventory[i].Combo = 0;      
+   }
+	if (currentHP <= 0) {
+		TrainingLog("You cannot train with 0HP.");
+	}
+	else if (battleInventory.length == 0) {		
+		TrainingLog("You need to equip an item first.");	
+	} else {
+		currentEnemy = GetEnemy(2);
+		isTraining = true;
+		TrainingLog(currentEnemy.Name + " appears.");
+	}
+	$('#trainingContent').show();
+}
+
 function BattleTraining() {
 	var playerSpeedMod = Math.ceil(5 - spd * 0.02);
 	if (playerSpeedMod < 1)
@@ -15,13 +34,33 @@ function BattleTraining() {
 }
 
 function PlayerPhase() {
-	var item = GetNextBattleInventoryItem()
-	currentEnemy.CurrentHP -= item.ATK;
+	var previousItem = GetPreviousBattleInventoryItem();
+	var item = GetNextBattleInventoryItem();
+	var combo = CheckCombo(previousItem, item);
+	var useCombo = typeof(combo) !== "undefined";
+	var damage = 0;
+	
+	if (useCombo) {
+		damage = Math.ceil(item.ATK * combo.ModATK);			
+		item.Combo = combo.Id;
+		ChangeBattleItem(item.Name, item);
+		comboLevel += 1;
+	} else {
+		comboLevel = 0;
+		damage = item.ATK;
+	}	
+	currentEnemy.CurrentHP -= damage;
+	
 	if (currentEnemy.CurrentHP <= 0) {
 		currentEnemy.CurrentHP = 0;
 		isTraining = false;
 	}
-	TrainingLog("Your " + item.Name + " deals " + item.ATK + " damage to " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")");
+	
+	if (useCombo) {
+		TrainingLog(item.Name + "'s \"" + combo.Name + "\" deals " + damage + " damage to " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")", comboLevel);
+	} else {
+		TrainingLog("Your " + item.Name + " deals " + damage + " damage to " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")", comboLevel);
+	}
 	
 	if (!isTraining && currentEnemy.CurrentHP == 0) {
 		exp += currentEnemy.EXP;
@@ -46,6 +85,14 @@ function EnemyPhase() {
 	}
 }
 	
-function TrainingLog(message) {
-	$('#trainingLog').prepend("<p>" + message + "</p>");
+function TrainingLog(message, comboLevel) {
+	var logItem = "<p>" + message + "</p>";
+	if (comboLevel == 1) {
+		logItem = "<p style='font-weight:bold;color:#900;'>" + message + "</p>";
+	} else if (comboLevel == 2) {
+		logItem = "<p style='font-weight:bold;color:#090;font-size:12pt;'>" + message + "</p>";
+	} else if (comboLevel == 3) {
+		logItem = "<p style='font-weight:bold;color:#009;font-size:13pt;'>" + message + "</p>";
+	}
+	$('#trainingLog').prepend(logItem);
 }

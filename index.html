@@ -1,13 +1,15 @@
 <html>
     <head>
 		<title>TOWER</title>
+		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />		
         <!--load scripts--> 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>		
 		<script type="text/javascript" src="character.js"></script>
 		<script type="text/javascript" src="item.js"></script>
+		<script type="text/javascript" src="combo.js"></script>
 		<script type="text/javascript" src="plaza.js"></script>
 		<script type="text/javascript" src="npc.js"></script>
 		<script type="text/javascript" src="variables.js"></script>
@@ -29,8 +31,21 @@
 			<span id="wis">WIS: 0</span>
 		</div>
 		<hr>
-		<div id="equipment">
-		</div>
+		<!--<div>		
+			<div id="item1" class="item">
+				<div class="row">
+					<div class="col-md-8">
+						<span id="item1Label">Pointy Rock</span>
+						<p>ATK = 30 - WIS = 0</p>
+					<div>
+					<div class="col-md-4">
+						<button type="button" class="btn" ><i class="fa fa-minus" aria-hidden="true"></i> unequip</button>
+					</div>
+				</div>
+			</div>
+		</div>-->
+		<div id="equipment"></div>
+		<div class="clearfix"></div>
 		<hr>
 		<div id="controls">
 			<button type="button" class="btn btn-danger" id="reset"><i class="fa fa-recycle" aria-hidden="true"></i> Reset</button>

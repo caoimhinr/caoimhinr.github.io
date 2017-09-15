@@ -1,0 +1,7 @@
+div.item {
+	height: 100px;
+	width: 250px;
+	border-radius: 10px;
+    background: #99CCFF;
+	float: left;
+}

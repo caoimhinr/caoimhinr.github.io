@@ -6,23 +6,7 @@
 		$('#training').click(function() {
 			HideAllContent();
 			$('#trainingContent').html('<span>TRAINING</span><br /><div id="trainingLog"></div>');
-			battleInventoryIndex = 0;
-			if (currentHP <= 0) {
-				$('#trainingContent').show();
-				TrainingLog("You cannot train with 0HP.");
-			} else {
-				currentEnemy = CreateNPC();
-				currentEnemy.Name = "Peasant";
-				currentEnemy.HP = 200;
-				currentEnemy.CurrentHP = currentEnemy.HP;
-				currentEnemy.ATK = 1;
-				currentEnemy.EXP = 10;
-				currentEnemy.Gold = 50;
-				currentEnemy.SPD = 10;
-				isTraining = true;
-				$('#trainingContent').show();
-				TrainingLog(currentEnemy.Name + " appears.");
-			}
+			InitializeTraining();
 		});
 		$('#plaza').click(function() {
 			HideAllContent();
@@ -60,6 +44,11 @@
 		if (isTraining && 
 			typeof(currentEnemy !== "undefined")) {
 			BattleTraining();
+		} else if (currentHP < hp) {
+			currentHP += Math.ceil(currentHP * regenRate);
+			if (currentHP >= hp) {
+				currentHP = hp;
+			}
 		}
 		
 		goldTimer += 1;

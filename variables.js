@@ -5,6 +5,7 @@ var totalExp = 0;
 
 var hp = 10;
 var currentHP = 10;
+var regenRate = 0.01;
 var atk = 5;
 var def = 0;
 var spd = 1;
@@ -126,10 +127,19 @@ function LoadGameState() {
 var isTraining = false;
 var currentEnemy = {};
 var battleTimer = 0;
+var comboLevel = 0;
 
 var inventory = [];
 var battleInventory = [];
 var battleInventoryIndex = 0;
+
+function GetPreviousBattleInventoryItem() {
+	var index = battleInventoryIndex - 1;
+	if (index < 0) {
+		index = battleInventory.length - 1;
+	}
+	return battleInventory[index];
+}
 
 function GetNextBattleInventoryItem() {
 	var item = battleInventory[battleInventoryIndex];
