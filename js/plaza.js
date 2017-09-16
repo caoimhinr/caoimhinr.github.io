@@ -1,5 +1,5 @@
 function InitializePlaza() {
-	$('#plazaContent').html('<span>PLAZA</span><br />');
+	$('#plazaContainer').html('');
 	
 	var plazaItems = [];
 	// var item = CreateItem();

@@ -1,11 +1,14 @@
 (function() {
 	$(document).ready(function() {
 		LoadGameState();
+		$('#equipment a').click(function() {
+			Unequip(JSON.parse($(this).attr('data-item')), $(this));
+		});
 		UpdateVariablesUI();
 		UpdateEquipmentUI();
 		$('#training').click(function() {
 			HideAllContent();
-			$('#trainingContent').html('<span>TRAINING</span><br /><div id="trainingLog"></div>');
+			$('#trainingLog').html('');
 			InitializeTraining();
 			$('#toggle').prop("checked", false);
 		});
@@ -32,6 +35,10 @@
 			ResetVariables();
 			$('#toggle').prop("checked", false);
 		});
+		
+		//temp
+		InitializeInventory();
+		$('#inventoryContent').show();
 	});
 	
     setInterval(onTimerTick, 100);

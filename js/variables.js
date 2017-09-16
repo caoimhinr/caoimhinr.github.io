@@ -30,9 +30,25 @@ function UpdateVariablesUI() {
 
 function UpdateEquipmentUI() {
 	// $('#equipment ul').html('');
-	$.each(battleInventory, function(i, e) {
-		$('#equipment ul').append(GetItemEquipmentUI(e, 1));
-	});
+	// $.each(battleInventory, function(i, e) {
+		//$('#equipment ul').append(GetItemEquipmentUI(e, 1));
+	// });
+	if (battleInventory.length > 0) {
+		$("#equip1").text(battleInventory[0].Name);
+		$("#equip1").attr('data-item', JSON.stringify(battleInventory[0]));
+	}
+	if (battleInventory.length > 1) {
+		$("#equip2").text(battleInventory[1].Name);
+		$("#equip2").attr('data-item', JSON.stringify(battleInventory[1]));
+	}
+	if (battleInventory.length > 2) {
+		$("#equip3").text(battleInventory[2].Name);
+		$("#equip3").attr('data-item', JSON.stringify(battleInventory[2]));
+	}
+	if (battleInventory.length > 3) {
+		$("#equip4").text(battleInventory[3].Name);
+		$("#equip4").attr('data-item',JSON.stringify( battleInventory[3]));
+	}
 }
 
 function ResetVariables() {

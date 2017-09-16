@@ -26,33 +26,90 @@ p.battleLog {
 	font-size: 1.1em;
 }
 
+/**************************
+	EQUIPMENT */
+
 #equipment  ul{
+	position: fixed;
+	top: 51;
 	list-style-type: none;
-    margin: 15 10;
+    margin: 10 0;
     padding: 0 0;
     overflow: hidden;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 #equipment  ul li {
-	float: left;
 	overflow: hidden;
-    background-color: #333333;
-	width: 23%;
+	width: 75px;
 	height: 75px;
-	margin: 0 1%;
+	margin: 0 10px;
 	border-radius: 5px;
+	align-self:space-between;	
+	border: 1px solid #000;
 }
 
 #equipment li a {	
-    display: block;
+    display: inline-block;
     color: white;
     text-align: center;
     padding: 10px;
+	height: 100%;
+	width: 100%;
     text-decoration: none;
+	text-shadow: 1px 1px #999;
 }
 
-#equipment li span {	
-color: #FFF;
+#equipment li a:not(:empty){	    
+    background-color: #333333;
+}
+
+/***************************
+	INVENTORY */
+	
+#inventoryContainer {
+    margin: 10 0;
+    padding: 0 0;
+	width: 100%;
+}
+
+#inventoryContainer  div {	    
+	width: 50%;
+	float: left;
+	height: 75px;
+	margin: 0 0px;	
+}
+
+#inventoryContainer  div span {	    
+	width: 100%;
+}
+
+#inventoryContainer  div a {	    
+	width: 35px;
+	height: 35px;
+	background: #F00;
+	border-radius: 5px;
+	display: inline-block;
+    text-align: center;
+}
+
+/******************************
+	OTHER */
+	
+.contentTitle {
+	width: 100%;
+	text-align: center;
+	background: #a8723f;
+	color: #f2d6bc;
+	text-shadow: 1px 1px #000;
+	border-top: 1px solid #87592d;	
+	border-bottom: 1px solid #87592d;
+}
+
+#content {
+	margin-top: 126px;
 }
 
 /********************************************

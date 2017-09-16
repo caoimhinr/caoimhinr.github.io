@@ -51,8 +51,8 @@ function ChangeStat( name, stat ) {
 }
 	
 function InitializeCharacter() {
-	$('#characterContent').html('<span>CHARACTER</span><br />');
+	$('#characterContainer').html('');
 	$.each(stats, function(i, e) {
-		$('#characterContent').append(GetStatUI(e, 1));
+		$('#characterContainer').append(GetStatUI(e, 1));
 	});
 }

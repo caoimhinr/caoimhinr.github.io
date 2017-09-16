@@ -20,29 +20,22 @@ function Item() {
 }
 
 function GetItemInventoryUI(item, id) {
-	var itemUI = $("<div id='item" + id + "'><span id='item" + id + "Label'></span><a href='#' class='sell' data-item='" + JSON.stringify(item) + "'>sell</a></div>");
+	var itemUI = $("<div><span id='item" + id + "Label'></span><a href='#' class='sell' data-item='" + JSON.stringify(item) + "'>sell</a><a href='#' class='use' data-item='" + JSON.stringify(item) + "'>use</a><a href='#' class='equip' data-item='" + JSON.stringify(item) + "'>equip</a></div>");
 	itemUI.find('#item' + id + 'Label').text(item.Name + "  ");
 	itemUI.find('a.sell').click(function() {
 		Sell(JSON.parse($(this).attr('data-item')));
 	});
-	
-	if (item.IsConsumable) {
-		itemUI.find('#item' + id + 'Label').append("<a href='#' class='use' data-item='" + JSON.stringify(item) + "'>use</a>&nbsp;&nbsp;");
-		itemUI.find('a.use').click(function() {
+	itemUI.find('a.use').click(function() {
 			Use(JSON.parse($(this).attr('data-item')));
 		});
-	}
-	else if (item.IsEquippable && !item.Equipped) {
-		itemUI.find('#item' + id + 'Label').append("<a href='#' class='equip' data-item='" + JSON.stringify(item) + "'>equip</a>&nbsp;&nbsp;");
 		itemUI.find('a.equip').click(function() {
 			Equip(JSON.parse($(this).attr('data-item')));
 		});
+	if (!item.IsConsumable) {		
+		itemUI.find('a.use').remove();
 	}
-	else if (item.IsEquippable && item.Equipped) {
-		itemUI.find('#item' + id + 'Label').append("<a href='#' class='unequip' data-item='" + JSON.stringify(item) + "'>unequip</a>&nbsp;&nbsp;");
-		itemUI.find('a.unequip').click(function() {
-			Unequip(JSON.parse($(this).attr('data-item')));
-		});
+	else if (!item.IsEquippable || !item.Equipped) {
+		itemUI.find('a.equip').remove();
 	}
 	return itemUI;
 }
@@ -70,15 +63,10 @@ function GetItemShopUI(item, id) {
 	return itemUI;
 }
 
-function GetItemEquipmentUI(item, id) {
-	var itemUI = $("<li id='item" + id + "'><span id='item" + id + "Label'></span><a data-item='" + JSON.stringify(item) + "'>unequip</a></li>");
-	itemUI.find('#item' + id + 'Label').text(item.Name + " - ATK = " + item.ATK + " - WIS = " + item.WIS);
-	itemUI.find('button').click(function() {
-	console.log('uhuh');
-		Unequip(JSON.parse($(this).attr('data-item')), 1);
-	});	
-	return itemUI;
-}
+// function GetItemEquipmentUI(item, id) {
+	// var itemUI = $("<li id='item" + id + "'><span id='item" + id + "Label'></span><a data-item='" + JSON.stringify(item) + "'>unequip</a></li>");	
+	// return itemUI;
+// }
 
 function Buy(item, amount) {
 	if (gold >= item.Gold * amount) {
@@ -126,11 +114,12 @@ function Equip(item) {
 	InitializeInventory();		
 }
 
-function Unequip(item) {	
+function Unequip(item, element) {	
 	battleInventory.splice( $.inArray(item, battleInventory), 1 );		
 	item.Equipped = false;
 	ChangeItem(item.Name, item);
-	UpdateEquipmentUI();
+	element.removeAttr("data-item");
+	element.text("");
 	InitializeInventory();	
 }
 
@@ -153,9 +142,9 @@ function ChangeBattleItem( name, item ) {
 }
 	
 function InitializeInventory() {
-	$('#inventoryContent').html('<span>INVENTORY</span><br />');
+	$('#inventoryContainer').html('');
 	$.each(inventory, function(i, e) {
-		$('#inventoryContent').append(GetItemInventoryUI(e, 1));
+		$('#inventoryContainer').append(GetItemInventoryUI(e, 1));
 	});
 }
 
