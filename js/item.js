@@ -20,7 +20,8 @@ function Item() {
 }
 
 function GetItemInventoryUI(item, id) {
-	var itemUI = $("<div><div class='img'></div><span id='item" + id + "Label'></span><a href='#' class='use' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i></a><a href='#' class='equip' data-item='" + JSON.stringify(item) + "'><i class='fa fa-user-plus' aria-hidden='true'></i></a><a href='#' class='sell' data-item='" + JSON.stringify(item) + "'><i class='fa fa-usd' aria-hidden='true'></i></a></div>");
+	var imageName = item.Name.replace(/\s+/g, '-').toLowerCase();
+	var itemUI = $("<div><div class='img' style='background-image: url(\"../content/sprites/items/" + imageName + ".png\"); background-repeat: no-repeat; background-position: center;'></div><span id='item" + id + "Label'></span><a href='#' class='use' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i></a><a href='#' class='equip' data-item='" + JSON.stringify(item) + "'><i class='fa fa-user-plus' aria-hidden='true'></i></a><a href='#' class='sell' data-item='" + JSON.stringify(item) + "'><i class='fa fa-usd' aria-hidden='true'></i></a></div>");
 	itemUI.find('#item' + id + 'Label').text(item.Name + "  ");
 	itemUI.find('a.sell').click(function() {
 		Sell(JSON.parse($(this).attr('data-item')));
