@@ -7,7 +7,7 @@
 			HideAllContent();
 			$('#trainingContent').html('<span>TRAINING</span><br /><div id="trainingLog"></div>');
 			InitializeTraining();
-			
+			$('#toggle').prop("checked", false);
 		});
 		$('#plaza').click(function() {
 			HideAllContent();

@@ -71,7 +71,7 @@ function GetItemShopUI(item, id) {
 }
 
 function GetItemEquipmentUI(item, id) {
-	var itemUI = $("<div id='item" + id + "'><span id='item" + id + "Label'></span><button type='button' class='btn' data-item='" + JSON.stringify(item) + "'>unequip</a></div>");
+	var itemUI = $("<li id='item" + id + "'><span id='item" + id + "Label'></span><a data-item='" + JSON.stringify(item) + "'>unequip</a></li>");
 	itemUI.find('#item' + id + 'Label').text(item.Name + " - ATK = " + item.ATK + " - WIS = " + item.WIS);
 	itemUI.find('button').click(function() {
 	console.log('uhuh');

@@ -14,8 +14,45 @@ p.battleLog {
 	padding: 2px 10px;
 }
 
-.container {
+#hud {
+	position: fixed;
+	top: 0;
+	background: #898480;
+	margin: 0;
+	width: 100%;
+	height: 51px;
+	padding: 15px 65px;
+	color: #FFF;
+	font-size: 1.1em;
+}
+
+#equipment  ul{
+	list-style-type: none;
+    margin: 15 10;
+    padding: 0 0;
+    overflow: hidden;
+}
+
+#equipment  ul li {
 	float: left;
+	overflow: hidden;
+    background-color: #333333;
+	width: 23%;
+	height: 75px;
+	margin: 0 1%;
+	border-radius: 5px;
+}
+
+#equipment li a {	
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+#equipment li span {	
+color: #FFF;
 }
 
 /********************************************
@@ -29,9 +66,9 @@ label ul, label li{
 }
 
 label li {
-	background: black;
+	background: #FFF;
 	width: 36px;
-	height: 6px;
+	height: 5px;
 	transition: .5s linear;
 	list-style: none;
 }
@@ -45,10 +82,13 @@ label li {
 	display: block;
 	width: 36px;
 	height: 24px;
-	padding: 10px 0px;
-	margin: 5px 15px;
-	position: relative;
+	padding: 0;
+	margin: 0;
+	position: fixed;
+	top: 15;
+	left: 15;
     z-index: 99;
+	position: fixed;
 }
 
 input[type=checkbox]{
@@ -71,6 +111,7 @@ input[type=checkbox]:checked ~ label ul li {
   top: 0;
   overflow: hidden;
   padding-top: 50px;
+  z-index: 1;
 }
 
 input[type=checkbox]:checked ~ .rectangle .drawer {

@@ -29,9 +29,9 @@ function UpdateVariablesUI() {
 }
 
 function UpdateEquipmentUI() {
-	$('#equipment').html('');
+	// $('#equipment ul').html('');
 	$.each(battleInventory, function(i, e) {
-		$('#equipment').append(GetItemEquipmentUI(e, 1));
+		$('#equipment ul').append(GetItemEquipmentUI(e, 1));
 	});
 }
 
