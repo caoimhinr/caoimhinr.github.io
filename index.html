@@ -1,20 +1,22 @@
 <html>
-    <head>
+    <head>		
 		<title>Tower of Caoimhinr</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />		
         <!--load scripts--> 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>		
-		<script type="text/javascript" src="character.js"></script>
-		<script type="text/javascript" src="item.js"></script>
-		<script type="text/javascript" src="combo.js"></script>
-		<script type="text/javascript" src="plaza.js"></script>
-		<script type="text/javascript" src="npc.js"></script>
-		<script type="text/javascript" src="variables.js"></script>
-		<script type="text/javascript" src="battle.js"></script>
-		<script type="text/javascript" src="game.js"></script>
+		<script type="text/javascript" src="js/stitches.js"></script>
+		<script type="text/javascript" src="js/character.js"></script>
+		<script type="text/javascript" src="js/item.js"></script>
+		<script type="text/javascript" src="js/combo.js"></script>
+		<script type="text/javascript" src="js/plaza.js"></script>
+		<script type="text/javascript" src="js/npc.js"></script>
+		<script type="text/javascript" src="js/variables.js"></script>
+		<script type="text/javascript" src="js/battle.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
     </head>
     <!-- 
         render canvas into body, alternative you can use div, but disable 
@@ -25,10 +27,10 @@
 			<span id="gold">Gold: 0</span>
 			<span id="exp">Exp: 0</span>
 			<span id="hp">HP: 0</span>
-			<span id="atk">ATK: 0</span>
-			<span id="def">DEF: 0</span>
-			<span id="spd">SPD: 0</span>
-			<span id="wis">WIS: 0</span>
+			<span id="atk" style="display:none;">ATK: 0</span>
+			<span id="def" style="display:none;">DEF: 0</span>
+			<span id="spd" style="display:none;">SPD: 0</span>
+			<span id="wis" style="display:none;">WIS: 0</span>
 		</div>
 		<hr>
 		<!--<div>		

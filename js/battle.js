@@ -86,13 +86,13 @@ function EnemyPhase() {
 }
 	
 function TrainingLog(message, comboLevel) {
-	var logItem = "<p>" + message + "</p>";
+	var logItem = "<p class='battleLog'>" + message + "</p>";
 	if (comboLevel == 1) {
-		logItem = "<p style='font-weight:bold;color:#900;'>" + message + "</p>";
+		logItem = "<p class='battleLog' style='font-weight:bold;color:#F00;'>" + message + "</p>";
 	} else if (comboLevel == 2) {
-		logItem = "<p style='font-weight:bold;color:#090;font-size:12pt;'>" + message + "</p>";
+		logItem = "<p class='battleLog' style='font-weight:bold;color:#0F0;'>" + message + "</p>";
 	} else if (comboLevel == 3) {
-		logItem = "<p style='font-weight:bold;color:#009;font-size:13pt;'>" + message + "</p>";
+		logItem = "<p class='battleLog' style='font-weight:bold;color:#00F;'>" + message + "</p>";
 	}
 	$('#trainingLog').prepend(logItem);
 }
