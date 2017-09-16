@@ -1,7 +1,3 @@
-@viewport {
-	width: 640px;
-}
-
 div.item {
 	height: 100px;
 	width: 250px;
@@ -17,3 +13,57 @@ p.battleLog {
 	color: #FFF;
 	padding: 2px 10px;
 }
+
+/********************************************
+	MENU
+*********************************************/
+/*icon*/
+
+ul, li{
+  margin:0;
+  padding:0;
+}
+
+li {
+	background: black;
+	width: 36px;
+	height: 6px;
+	transition: .5s linear;
+	list-style: none;
+}
+
+.mid, .bot{
+  margin-top: 3px;
+}
+
+.rectangle label {
+	cursor: pointer;
+  display: block;
+  width: 36px;
+  height: 24px;
+  padding: 10px 0px;
+  margin: 5px 15px;
+  float: left;
+}
+
+input[type=checkbox]{
+	position: fixed;
+	left: -9999px;
+}
+
+input[type=checkbox]:checked ~ label ul li {
+    	width: 6px;
+}
+
+/*nav*/
+.drawer {
+  height: 100%;
+  width: 0px;
+  background: #cd4538;
+  transition: .5s linear;
+}
+
+input[type=checkbox]:checked ~  .rectangle .drawer {
+    	width: 80%;
+}
+
