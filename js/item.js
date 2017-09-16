@@ -20,22 +20,26 @@ function Item() {
 }
 
 function GetItemInventoryUI(item, id) {
-	var itemUI = $("<div><span id='item" + id + "Label'></span><a href='#' class='sell' data-item='" + JSON.stringify(item) + "'>sell</a><a href='#' class='use' data-item='" + JSON.stringify(item) + "'>use</a><a href='#' class='equip' data-item='" + JSON.stringify(item) + "'>equip</a></div>");
+	var itemUI = $("<div><div class='img'></div><span id='item" + id + "Label'></span><a href='#' class='use' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i></a><a href='#' class='equip' data-item='" + JSON.stringify(item) + "'><i class='fa fa-user-plus' aria-hidden='true'></i></a><a href='#' class='sell' data-item='" + JSON.stringify(item) + "'><i class='fa fa-usd' aria-hidden='true'></i></a></div>");
 	itemUI.find('#item' + id + 'Label').text(item.Name + "  ");
 	itemUI.find('a.sell').click(function() {
 		Sell(JSON.parse($(this).attr('data-item')));
 	});
 	itemUI.find('a.use').click(function() {
-			Use(JSON.parse($(this).attr('data-item')));
-		});
-		itemUI.find('a.equip').click(function() {
-			Equip(JSON.parse($(this).attr('data-item')));
-		});
+		Use(JSON.parse($(this).attr('data-item')), itemUI);
+	});
+	itemUI.find('a.equip').click(function() {
+		Equip(JSON.parse($(this).attr('data-item')));
+	});
 	if (!item.IsConsumable) {		
 		itemUI.find('a.use').remove();
 	}
-	else if (!item.IsEquippable || !item.Equipped) {
+	if (!item.IsEquippable) {
 		itemUI.find('a.equip').remove();
+	}
+	if (item.Equipped) {
+		itemUI.find('a.equip').remove();
+		itemUI.find('a.sell').remove();
 	}
 	return itemUI;
 }
@@ -63,11 +67,6 @@ function GetItemShopUI(item, id) {
 	return itemUI;
 }
 
-// function GetItemEquipmentUI(item, id) {
-	// var itemUI = $("<li id='item" + id + "'><span id='item" + id + "Label'></span><a data-item='" + JSON.stringify(item) + "'>unequip</a></li>");	
-	// return itemUI;
-// }
-
 function Buy(item, amount) {
 	if (gold >= item.Gold * amount) {
 		gold = gold - item.Gold * amount;
@@ -90,7 +89,7 @@ function Sell(item) {
 	InitializeInventory();	
 }
 
-function Use(item) {
+function Use(item, element) {
 	exp = exp + item.ConsumableExp;
 	hp = hp + item.ConsumableHP;
 	currentHP = currentHP + item.ConsumableCurrentHP;
@@ -102,8 +101,9 @@ function Use(item) {
 	wis = wis + item.ConsumableWIS;
 	
 	inventory.splice( $.inArray(item, inventory), 1 );	
+	element.remove();
 	UpdateVariablesUI();
-	InitializeInventory();	
+	// InitializeInventory();	
 }
 
 function Equip(item) {	

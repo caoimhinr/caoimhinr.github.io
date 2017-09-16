@@ -80,19 +80,46 @@ p.battleLog {
 	float: left;
 	height: 75px;
 	margin: 0 0px;	
+	padding: 5px;
+	color: #FFF;
+	border-top: 1px solid #b9c3f7;
+	background: #2f396d;
+}
+
+#inventoryContainer  div .img {	    
+	width: 55px;
+	height: 55px;
+	border-radius: 5px;
+	border: 1px solid #b9c3f7;
+	display: inline-block;
+    text-align: center;
+	margin: 5px 2px;
 }
 
 #inventoryContainer  div span {	    
 	width: 100%;
+	display: block;
+	text-shadow: 1px 1px #999;
 }
 
 #inventoryContainer  div a {	    
 	width: 35px;
 	height: 35px;
-	background: #F00;
 	border-radius: 5px;
+	border: 1px solid #b9c3f7;
 	display: inline-block;
     text-align: center;
+	margin: 2px 5px;
+}
+
+#inventoryContainer  div a i {	   
+    font-size: 16px;
+    line-height: 35px;
+    color:white;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    vertical-align: bottom;
 }
 
 /******************************
