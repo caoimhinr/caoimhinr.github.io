@@ -14,17 +14,21 @@ p.battleLog {
 	padding: 2px 10px;
 }
 
+.container {
+	float: left;
+}
+
 /********************************************
 	MENU
 *********************************************/
 /*icon*/
 
-ul, li{
-  margin:0;
-  padding:0;
+label ul, label li{
+	margin:0;
+	padding:0;
 }
 
-li {
+label li {
 	background: black;
 	width: 36px;
 	height: 6px;
@@ -33,17 +37,18 @@ li {
 }
 
 .mid, .bot{
-  margin-top: 3px;
+	margin-top: 3px;
 }
 
 .rectangle label {
 	cursor: pointer;
-  display: block;
-  width: 36px;
-  height: 24px;
-  padding: 10px 0px;
-  margin: 5px 15px;
-  float: left;
+	display: block;
+	width: 36px;
+	height: 24px;
+	padding: 10px 0px;
+	margin: 5px 15px;
+	position: relative;
+    z-index: 99;
 }
 
 input[type=checkbox]{
@@ -52,18 +57,46 @@ input[type=checkbox]{
 }
 
 input[type=checkbox]:checked ~ label ul li {
-    	width: 6px;
+	width: 6px;
 }
 
 /*nav*/
 .drawer {
   height: 100%;
   width: 0px;
-  background: #cd4538;
-  transition: .5s linear;
+  background: #CC9966;
+  transition: .2s linear;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  padding-top: 50px;
 }
 
-input[type=checkbox]:checked ~  .rectangle .drawer {
-    	width: 80%;
+input[type=checkbox]:checked ~ .rectangle .drawer {
+	width: 80%;				
 }
 
+.drawer ul {
+	margin: 0; 
+	padding: 0; 
+	list-style-type: none; 
+	list-style-image: none;
+}
+
+.drawer li {
+	display: block;   
+	padding:15px; 
+	border-bottom:#dddddd 1px solid;
+}
+
+.drawer ul li a { 
+	text-decoration:none;  
+	margin: 0px; 
+	color:#FFF;
+}
+
+.drawer a {
+	text-decoration:none; 
+	color:#FFF;
+}

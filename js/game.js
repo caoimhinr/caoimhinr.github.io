@@ -7,25 +7,30 @@
 			HideAllContent();
 			$('#trainingContent').html('<span>TRAINING</span><br /><div id="trainingLog"></div>');
 			InitializeTraining();
+			
 		});
 		$('#plaza').click(function() {
 			HideAllContent();
 			InitializePlaza();
 			$('#plazaContent').show();
+			$('#toggle').prop("checked", false);
 		});
 		$('#inventory').click(function() {
 			HideAllContent();
 			InitializeInventory();
 			$('#inventoryContent').show();
+			$('#toggle').prop("checked", false);
 		});
 		$('#character').click(function() {
 			HideAllContent();
 			InitializeCharacter();
 			$('#characterContent').show();
+			$('#toggle').prop("checked", false);
 		});
 		$('#reset').click(function() {
 			HideAllContent();
 			ResetVariables();
+			$('#toggle').prop("checked", false);
 		});
 	});
 	
