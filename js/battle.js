@@ -10,7 +10,7 @@ function InitializeTraining() {
 	else if (battleInventory.length == 0) {		
 		TrainingLog("You need to equip an item first.");	
 	} else {
-		currentEnemy = GetEnemy(3);
+		currentEnemy = GetEnemy(1);
 		isTraining = true;
 		TrainingLog(currentEnemy.Name + " appears.");
 	}
