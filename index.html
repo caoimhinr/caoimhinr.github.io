@@ -18,58 +18,94 @@
 		<script type="text/javascript" src="js/battle.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
     </head>
-    <!-- 
-        render canvas into body, alternative you can use div, but disable 
-        right click and hide cursor on parent div
-    -->
-    <body>
-        <div id="hud">
-			<span id="gold">Gold: 0</span>
-			<span id="exp">Exp: 0</span>
-			<span id="hp">HP: 0</span>
-			<span id="atk" style="display:none;">ATK: 0</span>
-			<span id="def" style="display:none;">DEF: 0</span>
-			<span id="spd" style="display:none;">SPD: 0</span>
-			<span id="wis" style="display:none;">WIS: 0</span>
-		</div>
-		<hr>
-		<!--<div>		
-			<div id="item1" class="item">
-				<div class="row">
-					<div class="col-md-8">
-						<span id="item1Label">Pointy Rock</span>
-						<p>ATK = 30 - WIS = 0</p>
-					<div>
-					<div class="col-md-4">
-						<button type="button" class="btn" ><i class="fa fa-minus" aria-hidden="true"></i> unequip</button>
+	<body>
+		<input type="checkbox" id="toggle">
+		<!--nav-->
+		<div class="rectangle">
+			<!--icon-->
+			<label for="toggle" onclick>
+				<ul>
+					<li class="top"></li>
+					<li class="mid"></li>
+					<li class="bot"></li>
+				</ul>
+			</label>
+			<div class="drawer">
+				<ul>
+					<li><a href="#" id="training"><i class="fa fa-users" aria-hidden="true"></i> Training</a></li>
+					<li><a href="#" id="plaza"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Plaza</a></li>
+					<li><a href="#" id="inventory"><i class="fa fa-suitcase" aria-hidden="true"></i> Inventory</a></li>
+					<li><a href="#" id="character"><i class="fa fa-male" aria-hidden="true"></i> Character</a></li>
+					<li><a href="#" id="reset"><i class="fa fa-recycle" aria-hidden="true"></i> Reset</a></li>
+				</ul>
+			</div>
+			<div>
+				<div id="hud">
+					<span id="gold">Gold: 0</span>
+					<span id="exp">Exp: 0</span>
+					<span id="hp">HP: 0</span>
+					<span id="atk" style="display:none;">ATK: 0</span>
+					<span id="def" style="display:none;">DEF: 0</span>
+					<span id="spd" style="display:none;">SPD: 0</span>
+					<span id="wis" style="display:none;">WIS: 0</span>
+				</div>
+				<!--<div>		
+					<div id="item1" class="item">
+						<div class="row">
+							<div class="col-md-8">
+								<span id="item1Label">Pointy Rock</span>
+								<p>ATK = 30 - WIS = 0</p>
+							<div>
+							<div class="col-md-4">
+								<button type="button" class="btn" ><i class="fa fa-minus" aria-hidden="true"></i> unequip</button>
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<div class="clearfix"></div>
+				<div id="equipment">
+					<ul>
+						<li><a href="#" id="equip1"></a></li>
+						<li><a href="#" id="equip2"></a></li>
+						<li><a href="#" id="equip3"></a></li>
+						<li><a href="#" id="equip4"></a></li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+				<hr>
+				<div id="content">
+					<div id="trainingContent" class="content" style="display:none;">
+						<p class="contentTitle">TRAINING</p>
+						<div class="wrapper">
+							<div id="trainingPlayerHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+							<div id="trainingPlayer" class="portrait left"></div>
+							<span id="playerName" class="left">Player</span>
+							<div id="trainingNpc" class="portrait right"></div>
+							<span id="npcName" class="right">NPC</span>
+							<div class="clearfix"></div>
+							<div id="trainingNpcHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+						</div>
+						<div id="trainingLog"></div>
+					</div>
+					<div id="plazaContent" class="content" style="display:none;">
+						<p class="contentTitle">PLAZA</p><div id="plazaContainer"></div>
+					</div>
+					<div id="inventoryContent" class="content" style="display:none;">
+						<p class="contentTitle">INVENTORY</p><div id="inventoryContainer"></div>
+					</div>
+					<div id="characterContent" class="content" style="display:none;">
+						<p class="contentTitle">CHARACTER</p><div id="characterContainer"></div>
 					</div>
 				</div>
 			</div>
-		</div>-->
-		<div id="equipment"></div>
-		<div class="clearfix"></div>
-		<hr>
-		<div id="controls">
-			<button type="button" class="btn btn-danger" id="reset"><i class="fa fa-recycle" aria-hidden="true"></i> Reset</button>
-			<button type="button" class="btn" id="training"><i class="fa fa-users" aria-hidden="true"></i> Training</button>
-			<button type="button" class="btn" id="plaza"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Plaza</button>
-			<button type="button" class="btn" id="inventory"><i class="fa fa-suitcase" aria-hidden="true"></i> Inventory</button>
-			<button type="button" class="btn" id="character"><i class="fa fa-male" aria-hidden="true"></i> Character</button>
 		</div>
-		<hr>
-		<div id="content">
-			<div id="trainingContent" class="content" style="display:none;">
-				<span>TRAINING</span><br /><div id="trainingLog"></div>
-			</div>
-			<div id="plazaContent" class="content" style="display:none;">
-				<span>PLAZA</span><br />
-			</div>
-			<div id="inventoryContent" class="content" style="display:none;">
-				<span>INVENTORY</span><br />
-			</div>
-			<div id="characterContent" class="content" style="display:none;">
-				<span>CHARACTER</span><br />
-			</div>
-		</div>
-    </body>
+	</body>
 </html>

@@ -40,6 +40,6 @@ function InitializePlaza() {
 	// plazaItems.push(item);
 	
 	$.each(allItems, function(i, e) {
-		$('#plazaContent').append(GetItemShopUI(e, 1));
+		$('#plazaContainer').append(GetItemShopUI(e, 1));
 	});	
 }

@@ -46,24 +46,24 @@ function GetItemInventoryUI(item, id) {
 }
 
 function GetItemShopUI(item, id) {
-	var itemUI = $("<div id='item" + id + "'><span id='item" + id + "Label'></span><button type='button' class='btn' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i> buy</a></div>");
+	var imageName = item.Name.replace(/\s+/g, '-').toLowerCase();
+	var itemUI = $("<div><div class='img' style='background-image: url(\"../content/sprites/items/" + imageName + ".png\"); background-repeat: no-repeat; background-position: center;'></div><span id='item" + id + "Label'></span><a class='buy' data-item='" + JSON.stringify(item) + "'>X 1</a><a class='buy10' data-item='" + JSON.stringify(item) + "'>X 10</a><a class='buy100' data-item='" + JSON.stringify(item) + "'>X 100</a></div>");
 	itemUI.find('#item' + id + 'Label').text(item.Name + " - Price = " + item.Gold + "g  ");
-	itemUI.find('button').click(function() {
+	itemUI.find('a.buy').click(function() {
 		Buy(JSON.parse($(this).attr('data-item')), 1);
 	});	
+	itemUI.find('a.buy10').click(function() {
+		Buy(JSON.parse($(this).attr('data-item')), 10);
+	});
+	itemUI.find('a.buy100').click(function() {
+		Buy(JSON.parse($(this).attr('data-item')), 100);
+	});
 	
-	if (gold >= item.Gold * 10) {
-		itemUI.find('#item' + id + 'Label').append("<button type='button' class='btn buy10' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i> buy x10</a>&nbsp;&nbsp;");
-		itemUI.find('button.buy10').click(function() {
-			Buy(JSON.parse($(this).attr('data-item')), 10);
-		});
-	}	
-	
-	if (gold >= item.Gold * 100) {
-		itemUI.find('#item' + id + 'Label').append("<button type='button' class='btn buy100' data-item='" + JSON.stringify(item) + "'><i class='fa fa-plus' aria-hidden='true'></i> buy x100</a>&nbsp;&nbsp;");
-		itemUI.find('button.buy100').click(function() {
-			Buy(JSON.parse($(this).attr('data-item')), 100);
-		});
+	if (gold < item.Gold * 10) {
+		itemUI.find('button.buy10').remove();
+	}		
+	else if (gold < item.Gold * 100) {
+		itemUI.find('button.buy100').remove();
 	}
 	return itemUI;
 }

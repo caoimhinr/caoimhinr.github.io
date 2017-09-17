@@ -4,6 +4,7 @@
 		$('#equipment a').click(function() {
 			Unequip(JSON.parse($(this).attr('data-item')), $(this));
 		});
+				
 		UpdateVariablesUI();
 		UpdateEquipmentUI();
 		$('#training').click(function() {
@@ -37,8 +38,8 @@
 		});
 		
 		//temp
-		InitializeInventory();
-		$('#inventoryContent').show();
+			$('#trainingLog').html('');
+			InitializeTraining();
 	});
 	
     setInterval(onTimerTick, 100);
@@ -53,14 +54,18 @@
 			UpdateVariablesUI();
 		}
 		
-		if (isTraining && 
+		if (isTraining &&
 			typeof(currentEnemy !== "undefined")) {
 			BattleTraining();
 		} else if (currentHP < hp) {
 			if (currentHP == 0) {
 				currentHP = 1;
 			}
-			currentHP += Math.ceil(currentHP * regenRate);			
+			var regeneratedHealth = Math.ceil(currentHP * regenRate);
+			currentHP += regeneratedHealth;		
+			var hBar = $('#trainingPlayerHealth.health-bar');
+			SetHealthBarValue(hBar, regeneratedHealth, false);			
+			
 			if (currentHP >= hp) {
 				currentHP = hp;
 			}
