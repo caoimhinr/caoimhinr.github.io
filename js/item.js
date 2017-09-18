@@ -60,10 +60,10 @@ function GetItemShopUI(item, id) {
 	});
 	
 	if (gold < item.Gold * 10) {
-		itemUI.find('button.buy10').remove();
+		itemUI.find('a.buy10').remove();
 	}		
 	else if (gold < item.Gold * 100) {
-		itemUI.find('button.buy100').remove();
+		itemUI.find('a.buy100').remove();
 	}
 	return itemUI;
 }
@@ -149,41 +149,55 @@ function InitializeInventory() {
 	});
 }
 
-var allItems = [
-	{ Id : 1, Name : "EXP Bottle", Gold : 10, IsConsumable: true,	IsEquippable: false, Equipped: false, 
-	  ConsumableExp: 10, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 0, WIS: 0, Combo : 0
-	},
-	{ Id : 2, Name : "HP Bottle", Gold : 50, IsConsumable: true,	IsEquippable: false, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 5, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 0, WIS: 0, Combo : 0
-	},
-	{ Id : 3, Name : "Red Potion", Gold : 10, IsConsumable: true,	IsEquippable: false, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 100,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 0, WIS: 0, Combo : 0
-	},
-	{ Id : 4, Name : "Wooden Stick", Gold : 10, IsConsumable: false,	IsEquippable: true, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 25, WIS: 0, Combo : 0
-	},
-	{ Id : 5, Name : "Pointy Rock", Gold : 50, IsConsumable: false,	IsEquippable: true, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 30, WIS: 0, Combo : 0
-	},
-	{ Id : 6, Name : "Gaia Blade", Gold : 1000, IsConsumable: false,	IsEquippable: true, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 50, WIS: 0, Combo : 0
-	},
-	{ Id : 7, Name : "Spikes", Gold : 10, IsConsumable: false,	IsEquippable: true, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 5, WIS: 0, Combo : 0
-	},
-	{ Id : 8, Name : "Water Balloon", Gold : 100, IsConsumable: false,	IsEquippable: true, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 1, WIS: 0, Combo : 0
-	},
-	{ Id : 9, Name : "Zap Cannon", Gold : 1000, IsConsumable: false,	IsEquippable: true, Equipped: false, 
-	  ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
-	  ATK: 50, WIS: 0, Combo : 0
-	}
-];
+
+var allItems = (function() {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': "../json/data-item.json",
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+// var allItems = [
+	// { Id : 1, Name : "EXP Bottle", Gold : 10, IsConsumable: true,	IsEquippable: false, Equipped: false, 
+	  // ConsumableExp: 10, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 0, WIS: 0, Combo : 0
+	// },
+	// { Id : 2, Name : "HP Bottle", Gold : 50, IsConsumable: true,	IsEquippable: false, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 5, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 0, WIS: 0, Combo : 0
+	// },
+	// { Id : 3, Name : "Red Potion", Gold : 10, IsConsumable: true,	IsEquippable: false, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 100,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 0, WIS: 0, Combo : 0
+	// },
+	// { Id : 4, Name : "Wooden Stick", Gold : 10, IsConsumable: false,	IsEquippable: true, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 25, WIS: 0, Combo : 0
+	// },
+	// { Id : 5, Name : "Pointy Rock", Gold : 50, IsConsumable: false,	IsEquippable: true, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 30, WIS: 0, Combo : 0
+	// },
+	// { Id : 6, Name : "Gaia Blade", Gold : 1000, IsConsumable: false,	IsEquippable: true, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 50, WIS: 0, Combo : 0
+	// },
+	// { Id : 7, Name : "Spikes", Gold : 10, IsConsumable: false,	IsEquippable: true, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 5, WIS: 0, Combo : 0
+	// },
+	// { Id : 8, Name : "Water Balloon", Gold : 100, IsConsumable: false,	IsEquippable: true, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 1, WIS: 0, Combo : 0
+	// },
+	// { Id : 9, Name : "Zap Cannon", Gold : 1000, IsConsumable: false,	IsEquippable: true, Equipped: false, 
+	  // ConsumableExp: 0, ConsumableCurrentHP: 0,	ConsumableHP: 0, ConsumableATK: 0, ConsumableDEF: 0, ConsumableSPD: 0, ConsumableWIS: 0,
+	  // ATK: 50, WIS: 0, Combo : 0
+	// }
+// ];

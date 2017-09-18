@@ -18,3 +18,17 @@ c:\users\kwe\documents\visual studio 2013\Projects\SQliteManagement\SQliteManage
 C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.exe.config
 C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.exe
 C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.pdb
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.exe
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\SQliteManagement.pdb
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.dll
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.dll
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.xml
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\bin\Debug\System.Data.SQLite.xml
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.csprojResolveAssemblyReference.cache
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.Form1.resources
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.Properties.Resources.resources
+C:\Users\kwe\Downloads\caoimhinr.github.io\SQliteManagement\SQliteManagement\obj\Debug\SQliteManagement.csproj.GenerateResource.Cache

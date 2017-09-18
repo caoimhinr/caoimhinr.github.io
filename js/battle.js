@@ -10,29 +10,40 @@ function InitializeTraining() {
 	}
 	else if (battleInventory.length == 0) {		
 		TrainingLog("You need to equip an item first.");	
-	} else {
-		currentEnemy = GetEnemy(2);
-		$('#npcName').text(currentEnemy.Name);
-		//enemy health bar
-		var hBar = $('#trainingNpcHealth.health-bar'),
-			bar = hBar.find('.bar'),
-			hit = hBar.find('.hit');
-		hBar.data('total', currentEnemy.HP);   
-		hBar.data('value', hBar.data('total'));    
-		hit.css({'width': '0'});
-		bar.css({'width': '100%'});
-		//player health bar
-		hBar = $('#trainingPlayerHealth.health-bar'),
-		bar = hBar.find('.bar'),
-		hit = hBar.find('.hit');
-		hBar.data('total', currentEnemy.HP);   
-		hBar.data('value', hBar.data('total'));    
-		hit.css({'width': '0'});
-		bar.css({'width': '100%'});
-		isTraining = true;
-		TrainingLog(currentEnemy.Name + " appears.");
+	} else {		
+		$.each(allEnemies, function(i, e) {
+			var item = $("<div class='battleLog' data-enemy='" + e.Id + "'><div class='img' style='background-image: url(\"../content/sprites/items/" + e.Name + ".png\"); background-repeat: no-repeat; background-position: center;'></div><span style='font-weight:bold;color:#F00;'>" + e.Name + "</span></div>");
+			item.on('click', function() {
+				currentEnemy = GetEnemy($(this).attr("data-enemy"));
+				StartBattle();
+			});
+			$('#trainingLog').append(item);
+		});
 	}
 	$('#trainingContent').show();
+}
+
+function StartBattle() {
+	$('#npcName').text(currentEnemy.Name);
+	//enemy health bar
+	var hBar = $('#trainingNpcHealth.health-bar'),
+		bar = hBar.find('.bar'),
+		hit = hBar.find('.hit');
+	hBar.data('total', currentEnemy.HP);   
+	hBar.data('value', hBar.data('total'));    
+	hit.css({'width': '0'});
+	bar.css({'width': '100%'});
+	//player health bar
+	hBar = $('#trainingPlayerHealth.health-bar'),
+	bar = hBar.find('.bar'),
+	hit = hBar.find('.hit');
+	hBar.data('total', hp);   
+	hBar.data('value', hBar.data('total'));    
+	hit.css({'width': '0'});
+	bar.css({'width': '100%'});
+	isTraining = true;
+	$('#trainingLog').html('');
+	TrainingLog(currentEnemy.Name + " appears.");
 }
 
 function BattleTraining() {
@@ -65,8 +76,24 @@ function PlayerPhase() {
 		item.Combo = combo.Id;
 		ChangeBattleItem(item.Name, item);
 		comboLevel += 1;
+		gold += combo.Gold;
+		exp += combo.Exp;
+		spd += combo.SPD;
+		
+		if (combo.lifesteal != 0) {
+			currentHP += combo.lifesteal;		
+			if (currentHP > hp) {
+				currentHP = hp;
+			} else if (currentHP < 0) {
+				currentHP = 0;
+			}
+			var hBar = $('#trainingPlayerHealth.health-bar');
+			SetHealthBarValue(hBar, combo.lifesteal, combo.lifesteal < 0);
+		}
 	} else {
 		comboLevel = 0;
+		item.Combo = 0;
+		ChangeBattleItem(item.Name, item);
 		damage = item.ATK;
 	}	
 	currentEnemy.CurrentHP -= damage;
@@ -79,10 +106,10 @@ function PlayerPhase() {
 		isTraining = false;		
 	}
 	
-	if (useCombo) {
+	if (useCombo && combo.ModATK > 1) {
 		TrainingLog(item.Name + "'s \"" + combo.Name + "\" deals " + damage + " damage to " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")", comboLevel, item);
 	} else {
-		TrainingLog("Your " + item.Name + " deals " + damage + " damage to " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")", comboLevel);
+		TrainingLog("Your " + item.Name + " deals " + damage + " damage to " + currentEnemy.Name + ". (" + currentEnemy.CurrentHP + "/" + currentEnemy.HP + ")", 0);
 	}
 	
 	if (!isTraining && currentEnemy.CurrentHP == 0) {
@@ -106,7 +133,7 @@ function EnemyPhase() {
 	TrainingLog("Enemy " + currentEnemy.Name + " attacks you. (" + currentHP + "/" + hp + ")");	
 	
 	if (!isTraining && currentHP == 0) {					
-		var goldLost = gold * 0.5;
+		var goldLost = Math.ceil(gold * 0.5);
 		gold -= goldLost;
 		exp += 5;
 		TrainingLog("You were defeated by " + currentEnemy.Name + " and lost " + goldLost + " gold.");

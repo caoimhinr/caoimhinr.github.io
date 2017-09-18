@@ -22,8 +22,21 @@ function GetEnemy(id) {
    }
 }
 
-var allEnemies = [
-	{ Id : 1, Name : "Peasant", HP : 200, CurrentHP : 200, ATK : 1, DEF : 0, SPD : 10, WIS : 0,	EXP : 10, Gold : 50 },
-	{ Id : 2, Name : "Wild Boar", HP : 300, CurrentHP : 300, ATK : 2, DEF : 0, SPD : 20, WIS : 0,	EXP : 20, Gold : 100 },
-	{ Id : 3, Name : "Vandegut", HP : 1000, CurrentHP : 1000, ATK : 25, DEF : 0, SPD : 100, WIS : 0,	EXP : 1000, Gold : 1000 }
-];
+var allEnemies = (function() {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': "../json/data-npc.json",
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })();
+// var allEnemies = [
+	// { Id : 1, Name : "Peasant", HP : 200, CurrentHP : 200, ATK : 1, DEF : 0, SPD : 10, WIS : 0,	EXP : 10, Gold : 50 },
+	// { Id : 2, Name : "Wild Boar", HP : 300, CurrentHP : 300, ATK : 2, DEF : 0, SPD : 20, WIS : 0,	EXP : 20, Gold : 100 },
+	// { Id : 3, Name : "Vandegut", HP : 1000, CurrentHP : 1000, ATK : 25, DEF : 0, SPD : 100, WIS : 0,	EXP : 1000, Gold : 1000 }
+// ];

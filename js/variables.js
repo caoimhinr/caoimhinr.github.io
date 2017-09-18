@@ -14,7 +14,7 @@ var wis = 0;
 var stats = [];
 
 function UpdateVariables() {
-	gold = gold + 1;
+	gold = Math.ceil(gold + 1);
 	UpdateVariablesUI();
 }
 
