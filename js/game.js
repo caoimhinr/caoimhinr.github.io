@@ -7,6 +7,12 @@
 				
 		UpdateVariablesUI();
 		UpdateEquipmentUI();
+		$('#tower').click(function() {
+			HideAllContent();
+			$('#towerLog').html('');
+			InitializeTower();
+			$('#toggle').prop("checked", false);
+		});
 		$('#training').click(function() {
 			HideAllContent();
 			$('#trainingLog').html('');
@@ -38,8 +44,8 @@
 		});
 		
 		//temp
-			$('#trainingLog').html('');
-			InitializeTraining();
+			$('#towerLog').html('');
+			InitializeTower();
 	});
 	
     setInterval(onTimerTick, 100);
@@ -57,6 +63,10 @@
 		if (isTraining &&
 			typeof(currentEnemy !== "undefined")) {
 			BattleTraining();
+		} else if (isTower &&
+			typeof(currentEnemy !== "undefined") &&
+			typeof(currentLevel !== "undefined")) {
+			BattleTower();
 		} else if (currentHP < hp) {
 			if (currentHP == 0) {
 				currentHP = 1;
@@ -64,7 +74,9 @@
 			var regeneratedHealth = Math.ceil(currentHP * regenRate);
 			currentHP += regeneratedHealth;		
 			var hBar = $('#trainingPlayerHealth.health-bar');
-			SetHealthBarValue(hBar, regeneratedHealth, false);			
+			SetHealthBarValue(hBar, regeneratedHealth, false);		
+			hBar = $('#towerPlayerHealth.health-bar');
+			SetHealthBarValueTower(hBar, regeneratedHealth, false);				
 			
 			if (currentHP >= hp) {
 				currentHP = hp;

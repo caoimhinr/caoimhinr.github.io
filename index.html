@@ -32,6 +32,7 @@
 			</label>
 			<div class="drawer">
 				<ul>
+					<li><a href="#" id="tower"><i class="fa fa-building-o" aria-hidden="true"></i> Tower</a></li>
 					<li><a href="#" id="training"><i class="fa fa-users" aria-hidden="true"></i> Training</a></li>
 					<li><a href="#" id="plaza"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Plaza</a></li>
 					<li><a href="#" id="inventory"><i class="fa fa-suitcase" aria-hidden="true"></i> Inventory</a></li>
@@ -49,19 +50,6 @@
 					<span id="spd" style="display:none;">SPD: 0</span>
 					<span id="wis" style="display:none;">WIS: 0</span>
 				</div>
-				<!--<div>		
-					<div id="item1" class="item">
-						<div class="row">
-							<div class="col-md-8">
-								<span id="item1Label">Pointy Rock</span>
-								<p>ATK = 30 - WIS = 0</p>
-							<div>
-							<div class="col-md-4">
-								<button type="button" class="btn" ><i class="fa fa-minus" aria-hidden="true"></i> unequip</button>
-							</div>
-						</div>
-					</div>
-				</div>-->
 				<div class="clearfix"></div>
 				<div id="equipment">
 					<ul>
@@ -74,6 +62,27 @@
 				<div class="clearfix"></div>
 				<hr>
 				<div id="content">
+					<div id="towerContent" class="content" style="display:none;">
+						<p class="contentTitle">TOWER</p>
+						<div class="wrapper">
+							<div id="towerPlayerHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+							<div id="towerPlayer" class="portrait left"></div>
+							<span id="playerName" class="left">Player</span>
+							<div id="towerNpc" class="portrait right"></div>
+							<span id="npcName" class="right">NPC</span>
+							<div class="clearfix"></div>
+							<div id="towerNpcHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+						</div>
+						<div id="towerLog"></div>
+					</div>
 					<div id="trainingContent" class="content" style="display:none;">
 						<p class="contentTitle">TRAINING</p>
 						<div class="wrapper">
