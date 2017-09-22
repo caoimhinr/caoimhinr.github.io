@@ -67,7 +67,7 @@ function StartBattleTower() {
 }
 
 function BattleTower() {
-	if (battleTimer >= 40) {
+	if (battleTimer >= 25) {
 		var playerSpeedMod = Math.ceil(5 - spd * 0.02);
 		if (playerSpeedMod < 1)
 			playerSpeedMod = 1;
@@ -412,13 +412,13 @@ function SetHealthBarValue(hBar, delta, add) {
 	var newValue = value;
 	if (add) {
 		newValue =	value - delta;
-		if (newValue < 0)
-			newValue = 0;
 	} else {
 		newValue = value + delta;
-		if (newValue >= total)
-			newValue = total;
 	}
+	if (newValue < 0)
+		newValue = 0;
+	if (newValue >= total)
+		newValue = total;
     var barWidth = (newValue / total) * 100;
     var hitWidth = (delta / value) * 100 + "%";
 	hit.css('width', hitWidth);

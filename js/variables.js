@@ -67,10 +67,10 @@ function ResetVariables() {
 	
 function SaveGameState() {
 	Cookies.set('variables', { gold: gold, exp: exp, totalExp: totalExp, hp: hp, currentHP : currentHP, atk: atk, def: def, spd: spd, wis: wis, 
-							   currentTowerLevel: currentTowerLevel });
-	Cookies.set('inventory', inventory);
-	Cookies.set('battleInventory', battleInventory);
-	Cookies.set('stats', stats);
+							   currentTowerLevel: currentTowerLevel }, { expires: 7 });
+	Cookies.set('inventory', inventory, { expires: 7 });
+	Cookies.set('battleInventory', battleInventory, { expires: 7 });
+	Cookies.set('stats', stats, { expires: 7 });
 }
 
 function LoadGameState() {	
