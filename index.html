@@ -8,10 +8,42 @@
         <!--load scripts--> 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>		
+		<style type="text/css">
+			html, 
+			body {min-height:100%; padding:0; margin:0; color: #fff;}
+			
+			#wrapper {position:absolute; top:0; bottom:0; left:0; right:0;}
+			
+			.table {display:table; width:500px; height:100%; margin:auto;}
+			.row {display:table-row;}
+			.cell {display:table-cell;}
+			
+			.middle {background-color:#17383F; height:100%;}
+			.top {background-color:red;}
+			.bottom {background-color:#000;}
+			.container {padding:0px;}
+		</style>
     </head>
 	<body>
-		<div width="1024" style="margin:auto;">
-			<img src="content/img/banner.png" alt="banner" />
-		</div>
+	 <div id="wrapper">
+        <div class="table">
+            <div class="top row">
+                <div class="cell">
+					<img src="content/img/banner.png" alt="banner" /></div>
+            </div>
+            <div class="middle row">
+                <div class="container cell">
+					<p style="text-align: center; font-size: 1.5em;">A11iance Regional Defense Simulator</p>
+                </div>
+            </div>
+            <div class="bottom row">
+                <div class="cell" style="text-align: center;">
+					<img src="content/img/monkas.png" alt="monkas" />
+					<img src="content/img/monkas.png" alt="monkas" />
+					<img src="content/img/monkas.png" alt="monkas" />
+				</div>
+            </div>
+        </div>
+    </div>
 	</body>
 </html>
