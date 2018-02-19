@@ -36,6 +36,14 @@ var titans = (function() {
 		window.onbeforeunload = function() { 		
 			return "Do you want to leave this site?";		  
 		}
+		$('#data').click(function() {
+			$('#controls').show();
+			$('#titans').show();	
+		});
+		$('#simulate').click(function() {	
+			$('#controls').hide();
+			$('#titans').hide();
+		});
 		//SAVE
 		$('#btnSave').click(function() {			
 			var player = new Player();
@@ -81,10 +89,18 @@ var titans = (function() {
 				ChangePlayer(player.Name, player);
 			RefreshPlayerCombo();
 			$('#cboPlayers').val(player.Name);
+			SaveState();
 		});
 		//NEW
 		$('#btnNew').click(function() {
 			Load(new Player());
+		});
+		//DELETE
+		$('#btnDelete').click(function() {
+			var playerName = $('#playerName').val();
+			var currentPlayer = GetPlayer(playerName);
+			if (typeof(currentPlayer) !== "undefined") 
+					DeletePlayer(currentPlayer);
 		});
 		//PLAYER LOAD
 		$('#cboPlayers').on('change', function() {
@@ -99,11 +115,18 @@ var titans = (function() {
 			Import();
 			Load(players[0]);
 		});
+		
+		LoadState();
 	});
 })();
 
 function Load(player) {
 	$('#titans').html('');
+	if (typeof(player) == "undefined") {
+		$('#playerName').val("");
+		$('#playerRank').val(0);
+		return;
+	}
 	$('#playerName').val(player.Name);
 	$('#playerRank').val(player.Rank);
 	$.each(titans, function(i, e) {
@@ -129,21 +152,21 @@ function Load(player) {
 }
 
 function GetTitanUI(stat1, stat2, stat3, stat4, stat5, titan, id) {
-	var titanUI = $("<div class='row' style='border-bottom: 1px solid #fff;'><div class='col-md-1'>" + 
-						titan.Level + "</div><div class='col-md-1'>" + 
-						titan.Element + "</div><div class='col-md-2'>" + 
-						titan.HP + "</div><div class='col-md-3'>" + 
+	var titanUI = $("<div class='row' class='col-md-12' style='border-bottom: 1px solid #fff;'><div class='col-md-2'>" + 
+						titan.Level + " " + titan.Element  + "</div>" + 
+						 "<div class='col-md-2'>" + 
+						titan.HP + "</div><div class='col-md-4'>" + 
 						"<p id='currentDamage" + titan.Level + "1'>Current damage (avg): " + stat1.Damage + "</p>" +
 						"<p id='currentDamage" + titan.Level + "2'>Current damage (avg): " + stat2.Damage + "</p>" +
 						"<p id='currentDamage" + titan.Level + "3'>Current damage (avg): " + stat3.Damage + "</p>" +
 						"<p id='currentDamage" + titan.Level + "4'>Current damage (avg): " + stat4.Damage + "</p>" +
 						"<p id='currentDamage" + titan.Level + "5'>Current damage (avg): " + stat5.Damage + "</p>" +
 						"</div><div class='col-md-3'>" +
-						"<span>Team 1</span><input type='number' id='titan" + titan.Level + "1' data-current='" + stat1.Damage + "' value='0' />" + 
-						"<span>Team 2</span><input type='number' id='titan" + titan.Level + "2' data-current='" + stat2.Damage + "' value='0' />" +
-						"<span>Team 3</span><input type='number' id='titan" + titan.Level + "3' data-current='" + stat3.Damage + "' value='0' />" + 
-						"<span>Team 4</span><input type='number' id='titan" + titan.Level + "4' data-current='" + stat4.Damage + "' value='0' />" +
-						"<span>Team 5</span><input type='number' id='titan" + titan.Level + "5' data-current='" + stat5.Damage + "' value='0' />" +
+						"T1<input type='number' id='titan" + titan.Level + "1' data-current='" + stat1.Damage + "' value='0' />" + 
+						"T2<input type='number' id='titan" + titan.Level + "2' data-current='" + stat2.Damage + "' value='0' />" +
+						"T3<input type='number' id='titan" + titan.Level + "3' data-current='" + stat3.Damage + "' value='0' />" + 
+						"T4<input type='number' id='titan" + titan.Level + "4' data-current='" + stat4.Damage + "' value='0' />" +
+						"T5<input type='number' id='titan" + titan.Level + "5' data-current='" + stat5.Damage + "' value='0' />" +
 						"</div></div>");
 	return titanUI;
 }
@@ -173,6 +196,13 @@ function ChangePlayer(name, player ) {
    }
 }
 
+function DeletePlayer(player) {	
+	players.splice( $.inArray(player, players), 1 );
+	SaveState();
+	RefreshPlayerCombo();	
+	Load(players[0]);	
+}
+
 function GetStat(player, level, team) {
 	for (var i in player.Stats) {
      if (player.Stats[i].Level == level &&
@@ -200,4 +230,17 @@ function Export() {
 function Import() {
 	players = JSON.parse($('#json').val());
 	RefreshPlayerCombo();
+}
+	
+function SaveState() {
+	Cookies.set('players', JSON.stringify(players), { expires: 7 });
+}
+
+function LoadState() {
+	var cookie = Cookies.getJSON('players');
+	if (typeof(cookie) !== "undefined") {
+		players = cookie;
+		RefreshPlayerCombo();		
+		Load(players[0]);
+	}
 }

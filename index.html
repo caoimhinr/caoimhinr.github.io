@@ -39,66 +39,71 @@
             <div class="middle row">
                 <div class="container cell">
 					<p style="text-align: center; font-size: 1.5em;">A11iance Regional Defense Simulator</p>
-					<div class="row">
-						<div class="col-md-1">&nbsp;</div>
-						<div class="col-md-5"><a href="#">Data Input</a></div>
-						<div class="col-md-5"><a href="#">Simulate</a></div>
+					<div class="row col-md-12">
+						<div class="row col-md-12">
+							<div class="col-md-1">&nbsp;</div>
+							<div class="col-md-1"><a href="#" class="btn btn-primary" id="data">Data</a></div>
+							<div class="col-md-1"><a href="#" class="btn btn-primary" id="simulate">Simulate</a></div>
+						</div>
+						<div id="controls" class="col-md-12">
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-3">
+									<button id="btnExport">EXPORT</button>
+								</div>
+								<div class="col-md-5">
+									<input type="text" id="json" />
+								</div>
+								<div class="col-md-3">
+									<button id="btnImport">IMPORT</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">
+									<label for="cboPlayers">Members</label>
+								</div>
+								<div class="col-md-7">
+									<select id="cboPlayers"></select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">
+									<label for="playerName">Member</label>
+								</div>
+								<div class="col-md-4">
+									<input type="text" id="playerName" />
+								</div>
+								<div class="col-md-1">
+									<input type="number" id="playerRank" value="0" style="width:35px;" />
+								</div>
+								<div class="col-md-2">
+									<button id="btnSave">SAVE</button>
+								</div>
+								<div class="col-md-1">
+									<button id="btnNew">NEW</button>
+								</div>
+								<div class="col-md-1">
+									<button id="btnDelete">DELETE</button>
+								</div>
+								<!--
+								<label for="playerElement">Element</label>
+								<select id="playerElement">
+									<option value="Dark">Dark</option>
+									<option value="Water">Water</option>
+									<option value="Wood">Wood</option>
+									<option value="Light">Light</option>
+									<option value="Fire">Fire</option>
+								</select>
+								<label for="playerLevel">Level</label>
+								<input type="text" id="playerLevel" />
+								<label for="playerDamage">Damage</label>
+								<input type="text" id="playerDamage" />-->
+							</div>
+						</div>
+						<div id="titans" class="row col-md-12"></div>
 					</div>
-					<div id="controls">
-						<div class="row">
-							<div class="col-md-1">&nbsp;</div>
-							<div class="col-md-3">
-								<button id="btnExport">EXPORT</button>
-							</div>
-							<div class="col-md-5">
-								<input type="text" id="json" />
-							</div>
-							<div class="col-md-3">
-								<button id="btnImport">IMPORT</button>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-1">&nbsp;</div>
-							<div class="col-md-2">
-								<label for="cboPlayers">Members</label>
-							</div>
-							<div class="col-md-7">
-								<select id="cboPlayers"></select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-1">&nbsp;</div>
-							<div class="col-md-2">
-								<label for="playerName">Member</label>
-							</div>
-							<div class="col-md-5">
-								<input type="text" id="playerName" />
-							</div>
-							<div class="col-md-1">
-								<input type="number" id="playerRank" value="0" style="width:35px;" />
-							</div>
-							<div class="col-md-2">
-								<button id="btnSave">SAVE</button>
-							</div>
-							<div class="col-md-1">
-								<button id="btnNew">NEW</button>
-							</div>
-							<!--
-							<label for="playerElement">Element</label>
-							<select id="playerElement">
-								<option value="Dark">Dark</option>
-								<option value="Water">Water</option>
-								<option value="Wood">Wood</option>
-								<option value="Light">Light</option>
-								<option value="Fire">Fire</option>
-							</select>
-							<label for="playerLevel">Level</label>
-							<input type="text" id="playerLevel" />
-							<label for="playerDamage">Damage</label>
-							<input type="text" id="playerDamage" />-->
-						</div>
-					</div>
-					<div id="titans"></div>
                 </div>
             </div>
             <div class="bottom row">
