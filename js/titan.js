@@ -63,7 +63,7 @@ var titans = (function() {
 						else
 							player.Stats.push(stat);
 						//UPDATE UI
-						$('#currentDamage' + e.Level + i).html("Damage - Current: " + newDamage);
+						$('#currentDamage' + e.Level + i).html("Current damage (avg): " + newDamage);
 						$('#titan' + e.Level + i).attr("data-current", newDamage);
 						$('#titan' + e.Level + i).val(0);
 					}
@@ -124,18 +124,18 @@ function GetTitanUI(stat1, stat2, stat3, stat4, stat5, titan, id) {
 	var titanUI = $("<div class='row' style='border-bottom: 1px solid #fff;'><div class='col-md-1'>" + 
 						titan.Level + "</div><div class='col-md-1'>" + 
 						titan.Element + "</div><div class='col-md-2'>" + 
-						titan.HP + "</div><div class='col-md-4'>" + 
-						"<p id='currentDamage" + titan.Level + "1'>Damage - Current: " + stat1.Damage + "</p>" +
-						"<p id='currentDamage" + titan.Level + "2'>Damage - Current: " + stat2.Damage + "</p>" +
-						"<p id='currentDamage" + titan.Level + "3'>Damage - Current: " + stat3.Damage + "</p>" +
-						"<p id='currentDamage" + titan.Level + "4'>Damage - Current: " + stat4.Damage + "</p>" +
-						"<p id='currentDamage" + titan.Level + "5'>Damage - Current: " + stat5.Damage + "</p>" +
+						titan.HP + "</div><div class='col-md-3'>" + 
+						"<p id='currentDamage" + titan.Level + "1'>Current damage (avg): " + stat1.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "2'>Current damage (avg): " + stat2.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "3'>Current damage (avg): " + stat3.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "4'>Current damage (avg): " + stat4.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "5'>Current damage (avg): " + stat5.Damage + "</p>" +
 						"</div><div class='col-md-3'>" +
-						"Team 1<input type='number' id='titan" + titan.Level + "1' data-current='" + stat1.Damage + "' value='0' />" + 
-						"Team 2<input type='number' id='titan" + titan.Level + "2' data-current='" + stat2.Damage + "' value='0' />" +
-						"Team 3<input type='number' id='titan" + titan.Level + "3' data-current='" + stat3.Damage + "' value='0' />" + 
-						"Team 4<input type='number' id='titan" + titan.Level + "4' data-current='" + stat4.Damage + "' value='0' />" +
-						"Team 5<input type='number' id='titan" + titan.Level + "5' data-current='" + stat5.Damage + "' value='0' />" +
+						"<span>Team 1</span><input type='number' id='titan" + titan.Level + "1' data-current='" + stat1.Damage + "' value='0' />" + 
+						"<span>Team 2</span><input type='number' id='titan" + titan.Level + "2' data-current='" + stat2.Damage + "' value='0' />" +
+						"<span>Team 3</span><input type='number' id='titan" + titan.Level + "3' data-current='" + stat3.Damage + "' value='0' />" + 
+						"<span>Team 4</span><input type='number' id='titan" + titan.Level + "4' data-current='" + stat4.Damage + "' value='0' />" +
+						"<span>Team 5</span><input type='number' id='titan" + titan.Level + "5' data-current='" + stat5.Damage + "' value='0' />" +
 						"</div></div>");
 	return titanUI;
 }
