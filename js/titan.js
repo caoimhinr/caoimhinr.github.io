@@ -78,6 +78,8 @@ function Load(player) {
 	
 	$.each(titans, function(i, e) {
 		var stat = GetStat(player, e.Level);
+		if (typeof(stat) == "undefined")
+			stat = new Stat();
 		$('#titans').append(GetTitanUI(stat, e, 1));
 	});
 }
