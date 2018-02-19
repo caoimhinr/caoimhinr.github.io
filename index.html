@@ -12,6 +12,10 @@
 		<style type="text/css">
 			html, 
 			body {min-height:100%; padding:0; margin:0; color: #fff;}
+			input,
+			select,
+			button,
+			option { color: #000; }
 			img { display: block; max-width:1024px; max-height:212px; width: auto; height: auto;}
 			#wrapper {position:absolute; top:0; bottom:0; left:0; right:0;}
 			
@@ -35,6 +39,33 @@
             <div class="middle row">
                 <div class="container cell">
 					<p style="text-align: center; font-size: 1.5em;">A11iance Regional Defense Simulator</p>
+					<div id="players">
+						<div class="row">
+							<div class="col-md-1">&nbsp;</div>
+							<div class="col-md-2">
+								<label for="playerName">Name</label>
+							</div>
+							<div class="col-md-7">
+								<input type="text" id="playerName" />
+							</div>
+							<div class="col-md-2">
+								<button id="btnSave">SAVE</button>
+							</div>
+							<!--
+							<label for="playerElement">Element</label>
+							<select id="playerElement">
+								<option value="Dark">Dark</option>
+								<option value="Water">Water</option>
+								<option value="Wood">Wood</option>
+								<option value="Light">Light</option>
+								<option value="Fire">Fire</option>
+							</select>
+							<label for="playerLevel">Level</label>
+							<input type="text" id="playerLevel" />
+							<label for="playerDamage">Damage</label>
+							<input type="text" id="playerDamage" />-->
+						</div>
+					</div>
 					<div id="titans"></div>
                 </div>
             </div>
