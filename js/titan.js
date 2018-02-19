@@ -1,6 +1,7 @@
 function Player() {
 	return {
 		Name : "",
+		Rank : 0,
 		Stats : []
 	};
 }
@@ -32,6 +33,9 @@ var titans = (function() {
 	
 (function() {
 	$(document).ready(function() {
+		window.onbeforeunload = function() { 		
+			return "Do you want to leave this site?";		  
+		}
 		//SAVE
 		$('#btnSave').click(function() {			
 			var player = new Player();
@@ -41,6 +45,7 @@ var titans = (function() {
 					player = currentPlayer;
 			else
 				player.Name = playerName;
+			player.Rank = $('#playerRank').val();
 			
 			$.each(titans, function(i, e) {
 				for (var i = 1; i <= 5; i++) {
@@ -100,6 +105,7 @@ var titans = (function() {
 function Load(player) {
 	$('#titans').html('');
 	$('#playerName').val(player.Name);
+	$('#playerRank').val(player.Rank);
 	$.each(titans, function(i, e) {
 		if (e.Level <= 80) {
 			var stat1 = GetStat(player, e.Level, 1);

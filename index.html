@@ -39,7 +39,12 @@
             <div class="middle row">
                 <div class="container cell">
 					<p style="text-align: center; font-size: 1.5em;">A11iance Regional Defense Simulator</p>
-					<div id="players">
+					<div class="row">
+						<div class="col-md-1">&nbsp;</div>
+						<div class="col-md-5"><a href="#">Data Input</a></div>
+						<div class="col-md-5"><a href="#">Simulate</a></div>
+					</div>
+					<div id="controls">
 						<div class="row">
 							<div class="col-md-1">&nbsp;</div>
 							<div class="col-md-3">
@@ -66,8 +71,11 @@
 							<div class="col-md-2">
 								<label for="playerName">Member</label>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<input type="text" id="playerName" />
+							</div>
+							<div class="col-md-1">
+								<input type="number" id="playerRank" value="0" style="width:35px;" />
 							</div>
 							<div class="col-md-2">
 								<button id="btnSave">SAVE</button>
