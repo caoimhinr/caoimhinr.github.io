@@ -8,8 +8,9 @@ function Player() {
 function Stat(){
 	return {
 		Level: 0,
-		Damage: 0,
-		Titan : {}
+		Team: 0,
+		Damage: 0
+		//Titan : 0
 	};
 }
 
@@ -42,27 +43,30 @@ var titans = (function() {
 				player.Name = playerName;
 			
 			$.each(titans, function(i, e) {
-				var damage = parseInt($('#titan' + e.Level).val());
-				var current = parseInt($('#titan' + e.Level).attr("data-current"));
-				if (damage > 0) {
-					var newDamage = damage;
-					if (current > 0)
-						newDamage = (damage + current) / 2;
-					console.log(damage + " + " + current + " / 2 = " + newDamage);
-					var stat = new Stat();					
-					if (typeof(currentPlayer) !== "undefined")
-						stat = GetStat(player, e.Level);
-					stat.Level = e.Level;
-					stat.Damage = newDamage;
-					stat.Titan = e;
-					if (typeof(currentPlayer) !== "undefined")
-						ChangeStat(player, e.Level, stat);
-					else
-						player.Stats.push(stat);
-					//UPDATE UI
-					$('#currentDamage' + e.Level).html("Damage - Current: " + newDamage);
-					$('#titan' + e.Level).attr("data-current", newDamage);
-					$('#titan' + e.Level).val(0);
+				for (var i = 1; i <= 5; i++) {
+					var damage = parseInt($('#titan' + e.Level + i).val());
+					var current = parseInt($('#titan' + e.Level + i).attr("data-current"));
+					if (damage > 0) {
+						var newDamage = damage;
+						if (current > 0)
+							newDamage = (damage + current) / 2;
+						//console.log(damage + " + " + current + " / 2 = " + newDamage);
+						var stat = new Stat();					
+						if (typeof(currentPlayer) !== "undefined")
+							stat = GetStat(player, e.Level, i);
+						stat.Level = e.Level;
+						stat.Team = i;
+						stat.Damage = newDamage;
+						//stat.Titan = e;
+						if (typeof(currentPlayer) !== "undefined")
+							ChangeStat(player, e.Level, i, stat);
+						else
+							player.Stats.push(stat);
+						//UPDATE UI
+						$('#currentDamage' + e.Level + i).html("Damage - Current: " + newDamage);
+						$('#titan' + e.Level + i).attr("data-current", newDamage);
+						$('#titan' + e.Level + i).val(0);
+					}
 				}
 			});
 			
@@ -97,18 +101,42 @@ function Load(player) {
 	$('#titans').html('');
 	$('#playerName').val(player.Name);
 	$.each(titans, function(i, e) {
-		var stat = GetStat(player, e.Level);
-		if (typeof(stat) == "undefined")
-			stat = new Stat();
-		$('#titans').append(GetTitanUI(stat, e, 1));
+		var stat1 = GetStat(player, e.Level, 1);
+		var stat2 = GetStat(player, e.Level, 2);
+		var stat3 = GetStat(player, e.Level, 3);
+		var stat4 = GetStat(player, e.Level, 4);
+		var stat5 = GetStat(player, e.Level, 5);
+		if (typeof(stat1) == "undefined")
+			stat1 = new Stat();
+		if (typeof(stat2) == "undefined")
+			stat2 = new Stat();
+		if (typeof(stat3) == "undefined")
+			stat3 = new Stat();
+		if (typeof(stat4) == "undefined")
+			stat4 = new Stat();
+		if (typeof(stat5) == "undefined")
+			stat5 = new Stat();
+		$('#titans').append(GetTitanUI(stat1, stat2, stat3, stat4, stat5, e, 1));
 	});
 }
 
-function GetTitanUI(stat, titan, id) {
-	var titanUI = $("<div class='row'><div class='col-md-1'>" + 
+function GetTitanUI(stat1, stat2, stat3, stat4, stat5, titan, id) {
+	var titanUI = $("<div class='row' style='border-bottom: 1px solid #fff;'><div class='col-md-1'>" + 
 						titan.Level + "</div><div class='col-md-1'>" + 
 						titan.Element + "</div><div class='col-md-2'>" + 
-						titan.HP + "</div><div class='col-md-5' id='currentDamage" + titan.Level + "'>Damage - Current: " + stat.Damage + "</div><input type='number' id='titan" + titan.Level + "' data-current='" + stat.Damage + "' class='col-md-3' value='0' /></div>");
+						titan.HP + "</div><div class='col-md-4'>" + 
+						"<p id='currentDamage" + titan.Level + "1'>Damage - Current: " + stat1.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "2'>Damage - Current: " + stat2.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "3'>Damage - Current: " + stat3.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "4'>Damage - Current: " + stat4.Damage + "</p>" +
+						"<p id='currentDamage" + titan.Level + "5'>Damage - Current: " + stat5.Damage + "</p>" +
+						"</div><div class='col-md-3'>" +
+						"Team 1<input type='number' id='titan" + titan.Level + "1' data-current='" + stat1.Damage + "' value='0' />" + 
+						"Team 2<input type='number' id='titan" + titan.Level + "2' data-current='" + stat2.Damage + "' value='0' />" +
+						"Team 3<input type='number' id='titan" + titan.Level + "3' data-current='" + stat3.Damage + "' value='0' />" + 
+						"Team 4<input type='number' id='titan" + titan.Level + "4' data-current='" + stat4.Damage + "' value='0' />" +
+						"Team 5<input type='number' id='titan" + titan.Level + "5' data-current='" + stat5.Damage + "' value='0' />" +
+						"</div></div>");
 	return titanUI;
 }
 
@@ -137,18 +165,20 @@ function ChangePlayer(name, player ) {
    }
 }
 
-function GetStat(player, level) {
+function GetStat(player, level, team) {
 	for (var i in player.Stats) {
-     if (player.Stats[i].Level == level) {
+     if (player.Stats[i].Level == level &&
+		 player.Stats[i].Team == team) {
 		return jQuery.extend(true, {}, player.Stats[i]);
         break; //Stop this loop, we found it!
      }
    }
 }
 
-function ChangeStat(player, level, stat ) {
+function ChangeStat(player, level, team, stat ) {
    for (var i in player.Stats) {
-     if (player.Stats[i].Level == level) {
+     if (player.Stats[i].Level == level &&
+		 player.Stats[i].Team == team) {
         player.Stats[i] = stat;
         break; //Stop this loop, we found it!
      }
