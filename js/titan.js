@@ -32,22 +32,40 @@ var titans = (function() {
 (function() {
 	$(document).ready(function() {
 		//SAVE
-		$('#btnSave').click(function() {
+		$('#btnSave').click(function() {			
 			var player = new Player();
-			player.Name = $('#playerName').val();
+			var playerName = $('#playerName').val();
+			var currentPlayer = GetPlayer(playerName);
+			if (typeof(currentPlayer) !== "undefined")
+					player = currentPlayer;
+			else
+				player.Name = playerName;
 			
 			$.each(titans, function(i, e) {
-				var damage = $('#titan' + e.Level).val();
+				var damage = parseInt($('#titan' + e.Level).val());
+				var current = parseInt($('#titan' + e.Level).attr("data-current"));
 				if (damage > 0) {
-					var stat = new Stat();
+					var newDamage = damage;
+					if (current > 0)
+						newDamage = (damage + current) / 2;
+					var stat = new Stat();					
+					if (typeof(currentPlayer) !== "undefined")
+						stat = GetStat(player, e.Level);
 					stat.Level = e.Level;
-					stat.Damage = damage;
+					stat.Damage = newDamage;
+					$('#currentDamage' + e.Level).val("Damage - Current: " + newDamage);
 					stat.Titan = e;
-					player.Stats.push(stat);
+					if (typeof(currentPlayer) !== "undefined")
+						ChangeStat(player, e.Level, stat);
+					else
+						player.Stats.push(stat);
 				}
 			});
 			
-			players.push(player);
+			if (typeof(currentPlayer) == "undefined")
+				players.push(player);
+			else
+				ChangePlayer(player.Name, player);
 			RefreshPlayerCombo();
 			$('#cboPlayers').val(player.Name);
 			console.log(player);
@@ -75,7 +93,7 @@ var titans = (function() {
 
 function Load(player) {
 	$('#titans').html('');
-	
+	$('#playerName').val(player.Name);
 	$.each(titans, function(i, e) {
 		var stat = GetStat(player, e.Level);
 		if (typeof(stat) == "undefined")
@@ -88,7 +106,7 @@ function GetTitanUI(stat, titan, id) {
 	var titanUI = $("<div class='row'><div class='col-md-1'>" + 
 						titan.Level + "</div><div class='col-md-1'>" + 
 						titan.Element + "</div><div class='col-md-2'>" + 
-						titan.HP + "</div><div class='col-md-5'>Damage - Current: " + stat.Damage + "</div><input type='text' id='titan" + titan.Level + "' class='col-md-3' value='0' /></div>");
+						titan.HP + "</div><div class='col-md-5' id='currentDamage" + titan.Level + "'>Damage - Current: " + stat.Damage + "</div><input type='number' id='titan" + titan.Level + "' data-current='" + stat.Damage + "' class='col-md-3' value='0' /></div>");
 	return titanUI;
 }
 
@@ -108,10 +126,28 @@ function GetPlayer(name) {
    }
 }
 
+function ChangePlayer(name, player ) {
+   for (var i in players) {
+     if (players[i].Name == name) {
+        players[i] = player;
+        break; //Stop this loop, we found it!
+     }
+   }
+}
+
 function GetStat(player, level) {
 	for (var i in player.Stats) {
      if (player.Stats[i].Level == level) {
 		return jQuery.extend(true, {}, player.Stats[i]);
+        break; //Stop this loop, we found it!
+     }
+   }
+}
+
+function ChangeStat(player, level, stat ) {
+   for (var i in player.Stats) {
+     if (player.Stats[i].Level == level) {
+        player.Stats[i] = stat;
         break; //Stop this loop, we found it!
      }
    }
