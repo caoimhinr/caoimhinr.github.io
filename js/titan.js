@@ -31,11 +31,7 @@ var titans = (function() {
 	
 (function() {
 	$(document).ready(function() {
-		$('#titans').html('');
-		$.each(titans, function(i, e) {
-			$('#titans').append(GetTitanUI(null, e, 1));
-		});
-		
+		//SAVE
 		$('#btnSave').click(function() {
 			var player = new Player();
 			player.Name = $('#playerName').val();
@@ -53,23 +49,77 @@ var titans = (function() {
 			
 			players.push(player);
 			RefreshPlayerCombo();
+			$('#cboPlayers').val(player.Name);
 			console.log(player);
 		});
-		
+		//NEW
+		$('#btnNew').click(function() {
+			Load(new Player());
+		});
+		//PLAYER LOAD
+		$('#cboPlayers').on('change', function() {
+			var player = GetPlayer(this.value);
+			Load(player);
+			console.log("changed");
+		});
+		//EXPORT-IMPORT
+		$('#btnExport').click(function() {
+			Export();
+		});
+		$('#btnImport').click(function() {
+			Import();
+			Load(players[0]);
+		});
 	});
 })();
+
+function Load(player) {
+	$('#titans').html('');
+	
+	$.each(titans, function(i, e) {
+		var stat = GetStat(player, e.Level);
+		$('#titans').append(GetTitanUI(stat, e, 1));
+	});
+}
 
 function GetTitanUI(stat, titan, id) {
 	var titanUI = $("<div class='row'><div class='col-md-1'>" + 
 						titan.Level + "</div><div class='col-md-1'>" + 
 						titan.Element + "</div><div class='col-md-2'>" + 
-						titan.HP + "</div><div class='col-md-5'>Damage - Current: " + 10000000 + "</div><input type='text' id='titan" + titan.Level + "' class='col-md-3' value='0' /></div>");
+						titan.HP + "</div><div class='col-md-5'>Damage - Current: " + stat.Damage + "</div><input type='text' id='titan" + titan.Level + "' class='col-md-3' value='0' /></div>");
 	return titanUI;
 }
 
 function RefreshPlayerCombo() {
+	$('#cboPlayers').html('');
 	$.each(players, function(i, e) {
-		$('#cboPlayers').html('');
 		$('#cboPlayers').append("<option>" + e.Name + "</option>");
 	});
+}
+
+function GetPlayer(name) {
+	for (var i in players) {
+     if (players[i].Name == name) {
+		return jQuery.extend(true, {}, players[i]);
+        break; //Stop this loop, we found it!
+     }
+   }
+}
+
+function GetStat(player, level) {
+	for (var i in player.Stats) {
+     if (player.Stats[i].Level == level) {
+		return jQuery.extend(true, {}, player.Stats[i]);
+        break; //Stop this loop, we found it!
+     }
+   }
+}
+
+function Export() {
+	$('#json').val(JSON.stringify(players));
+}
+
+function Import() {
+	players = JSON.parse($('#json').val());
+	RefreshPlayerCombo();
 }
