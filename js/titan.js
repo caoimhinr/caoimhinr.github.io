@@ -48,17 +48,21 @@ var titans = (function() {
 					var newDamage = damage;
 					if (current > 0)
 						newDamage = (damage + current) / 2;
+					console.log(damage + " + " + current + " / 2 = " + newDamage);
 					var stat = new Stat();					
 					if (typeof(currentPlayer) !== "undefined")
 						stat = GetStat(player, e.Level);
 					stat.Level = e.Level;
 					stat.Damage = newDamage;
-					$('#currentDamage' + e.Level).val("Damage - Current: " + newDamage);
 					stat.Titan = e;
 					if (typeof(currentPlayer) !== "undefined")
 						ChangeStat(player, e.Level, stat);
 					else
 						player.Stats.push(stat);
+					//UPDATE UI
+					$('#currentDamage' + e.Level).html("Damage - Current: " + newDamage);
+					$('#titan' + e.Level).attr("data-current", newDamage);
+					$('#titan' + e.Level).val(0);
 				}
 			});
 			
@@ -68,7 +72,6 @@ var titans = (function() {
 				ChangePlayer(player.Name, player);
 			RefreshPlayerCombo();
 			$('#cboPlayers').val(player.Name);
-			console.log(player);
 		});
 		//NEW
 		$('#btnNew').click(function() {
@@ -78,7 +81,6 @@ var titans = (function() {
 		$('#cboPlayers').on('change', function() {
 			var player = GetPlayer(this.value);
 			Load(player);
-			console.log("changed");
 		});
 		//EXPORT-IMPORT
 		$('#btnExport').click(function() {
