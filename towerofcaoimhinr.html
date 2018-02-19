@@ -1,0 +1,120 @@
+<html>
+    <head>		
+		<title>Tower of Caoimhinr</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />		
+        <!--load scripts--> 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>		
+		<!--<script type="text/javascript" src="js/stitches.js"></script>-->
+		<script type="text/javascript" src="js/character.js"></script>
+		<script type="text/javascript" src="js/item.js"></script>
+		<script type="text/javascript" src="js/combo.js"></script>
+		<script type="text/javascript" src="js/plaza.js"></script>
+		<script type="text/javascript" src="js/npc.js"></script>
+		<script type="text/javascript" src="js/variables.js"></script>
+		<script type="text/javascript" src="js/battle.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
+    </head>
+	<body>
+		<input type="checkbox" id="toggle">
+		<!--nav-->
+		<div class="rectangle">
+			<!--icon-->
+			<label for="toggle" onclick>
+				<ul>
+					<li class="top"></li>
+					<li class="mid"></li>
+					<li class="bot"></li>
+				</ul>
+			</label>
+			<div class="drawer">
+				<ul>
+					<li><a href="#" id="tower"><i class="fa fa-building-o" aria-hidden="true"></i> Tower</a></li>
+					<li><a href="#" id="training"><i class="fa fa-users" aria-hidden="true"></i> Training</a></li>
+					<li><a href="#" id="plaza"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Plaza</a></li>
+					<li><a href="#" id="inventory"><i class="fa fa-suitcase" aria-hidden="true"></i> Inventory</a></li>
+					<li><a href="#" id="character"><i class="fa fa-male" aria-hidden="true"></i> Character</a></li>
+					<li><a href="#" id="reset"><i class="fa fa-recycle" aria-hidden="true"></i> Reset</a></li>
+				</ul>
+			</div>
+			<div>
+				<div id="hud">
+					<span id="gold">Gold: 0</span>
+					<span id="exp">Exp: 0</span>
+					<span id="hp">HP: 0</span>
+					<span id="atk" style="display:none;">ATK: 0</span>
+					<span id="def" style="display:none;">DEF: 0</span>
+					<span id="spd" style="display:none;">SPD: 0</span>
+					<span id="wis" style="display:none;">WIS: 0</span>
+				</div>
+				<div class="clearfix"></div>
+				<div id="equipment">
+					<ul>
+						<li><a href="#" id="equip1"></a></li>
+						<li><a href="#" id="equip2"></a></li>
+						<li><a href="#" id="equip3"></a></li>
+						<li><a href="#" id="equip4"></a></li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+				<hr>
+				<div id="content">
+					<div id="towerContent" class="content" style="display:none;">
+						<p class="contentTitle">TOWER</p>
+						<div class="wrapper">
+							<div id="towerPlayerHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+							<div id="towerPlayer" class="portrait left"></div>
+							<span id="playerName" class="left">Player</span>
+							<div id="towerNpc" class="portrait right"></div>
+							<span id="npcName" class="right">NPC</span>
+							<div class="clearfix"></div>
+							<div id="towerNpcHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+						</div>
+						<div id="towerLog"></div>
+					</div>
+					<div id="trainingContent" class="content" style="display:none;">
+						<p class="contentTitle">TRAINING</p>
+						<div class="wrapper">
+							<div id="trainingPlayerHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+							<div id="trainingPlayer" class="portrait left"></div>
+							<span id="playerName" class="left">Player</span>
+							<div id="trainingNpc" class="portrait right"></div>
+							<span id="npcName" class="right">NPC</span>
+							<div class="clearfix"></div>
+							<div id="trainingNpcHealth" class="health-bar" data-total="0" data-value="0">
+							  <div class="bar">
+								  <div class="hit"></div>
+							  </div>
+							</div>
+						</div>
+						<div id="trainingLog"></div>
+					</div>
+					<div id="plazaContent" class="content" style="display:none;">
+						<p class="contentTitle">PLAZA</p><div id="plazaContainer"></div>
+					</div>
+					<div id="inventoryContent" class="content" style="display:none;">
+						<p class="contentTitle">INVENTORY</p><div id="inventoryContainer"></div>
+					</div>
+					<div id="characterContent" class="content" style="display:none;">
+						<p class="contentTitle">CHARACTER</p><div id="characterContainer"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
