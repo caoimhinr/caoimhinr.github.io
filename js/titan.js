@@ -101,22 +101,24 @@ function Load(player) {
 	$('#titans').html('');
 	$('#playerName').val(player.Name);
 	$.each(titans, function(i, e) {
-		var stat1 = GetStat(player, e.Level, 1);
-		var stat2 = GetStat(player, e.Level, 2);
-		var stat3 = GetStat(player, e.Level, 3);
-		var stat4 = GetStat(player, e.Level, 4);
-		var stat5 = GetStat(player, e.Level, 5);
-		if (typeof(stat1) == "undefined")
-			stat1 = new Stat();
-		if (typeof(stat2) == "undefined")
-			stat2 = new Stat();
-		if (typeof(stat3) == "undefined")
-			stat3 = new Stat();
-		if (typeof(stat4) == "undefined")
-			stat4 = new Stat();
-		if (typeof(stat5) == "undefined")
-			stat5 = new Stat();
-		$('#titans').append(GetTitanUI(stat1, stat2, stat3, stat4, stat5, e, 1));
+		if (e.Level <= 80) {
+			var stat1 = GetStat(player, e.Level, 1);
+			var stat2 = GetStat(player, e.Level, 2);
+			var stat3 = GetStat(player, e.Level, 3);
+			var stat4 = GetStat(player, e.Level, 4);
+			var stat5 = GetStat(player, e.Level, 5);
+			if (typeof(stat1) == "undefined")
+				stat1 = new Stat();
+			if (typeof(stat2) == "undefined")
+				stat2 = new Stat();
+			if (typeof(stat3) == "undefined")
+				stat3 = new Stat();
+			if (typeof(stat4) == "undefined")
+				stat4 = new Stat();
+			if (typeof(stat5) == "undefined")
+				stat5 = new Stat();
+			$('#titans').append(GetTitanUI(stat1, stat2, stat3, stat4, stat5, e, 1));
+		}
 	});
 }
 
