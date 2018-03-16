@@ -79,6 +79,7 @@ function Demon() {
 var sinners = [];
 var sinnerSpawnCount;
 var sinnerHPMultiplier = 0;
+var sinnerHPMultiplierRate = 5;
 var sinnerSpawnRate = 2;
 
 function Wall() {
@@ -99,7 +100,7 @@ function SpawnSinner() {
 	sinner.strokeStyle = 'rgba(255, 255, 255, 1)';
 	sinner.hp = 100;	
 	if (sinnerSpawnCount % 5 == 0) {
-		sinnerHPMultiplier++;
+		sinnerHPMultiplier += sinnerHPMultiplierRate;
 	}	
 	sinner.hp += sinner.hp * (sinnerHPMultiplier / 100);
 	sinner.blood = 10;
