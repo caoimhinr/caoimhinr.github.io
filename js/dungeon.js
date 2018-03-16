@@ -2,7 +2,7 @@ var stop = false;
 var frameCount = 0;
 var $results = $("#results");
 var fps, fpsInterval, startTime, now, then, elapsed;
-
+var counter;
 
 // initialize the timer variables and start the animation
 
@@ -38,6 +38,8 @@ function animate() {
 }
 
 var elSize = 20;
+var blood;
+var souls;
 
 const mouse = {
     x : 0, y : 0,  // coordinates
@@ -66,21 +68,113 @@ function Sinner() {
 	var goingBackwardFail = false;
 	var fillStyle;
 	var strokeStyle;
+	var hp;
+	var blood;
+	var souls;
 }
 
 function Demon() {
 }
 
 var sinners = [];
+var sinnerSpawnCount;
+var sinnerHPMultiplier = 0;
+var sinnerSpawnRate = 2;
 
 function Wall() {
 	var x;
 	var y;
+	var blood;
+	var souls;
+}
+
+function SpawnSinner() {	
+	var sinner = new Sinner();
+	sinner.x = 7;
+	sinner.sx = 7;
+	sinner.y = 193;
+	sinner.sy = 193;
+	sinner.goingForward = true;
+	sinner.fillStyle = 'rgba(205, 205, 205, 1)';
+	sinner.strokeStyle = 'rgba(255, 255, 255, 1)';
+	sinner.hp = 100;	
+	if (sinnerSpawnCount % 5 == 0) {
+		sinnerHPMultiplier++;
+	}	
+	sinner.hp += sinner.hp * (sinnerHPMultiplier / 100);
+	sinner.blood = 10;
+	sinner.souls = 0;
+	sinners.push(sinner);
+	sinnerSpawnCount++;
 }
 
 var walls = [];
 
+function Demon() {
+	var x;
+	var y;
+	var atk;
+	var range;
+	var blood;
+	var souls;
+}
+
+var demons = [];
+
+function PlaceWall(ctx, x, y) {
+	ctx.beginPath();
+	ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+	ctx.fillStyle = 'rgba(105, 105, 105, 1)';
+	ctx.rect(x, y, elSize, elSize);
+	ctx.stroke();
+	ctx.fill();
+	ctx.closePath();
+	
+	var wall = new Wall();
+	wall.x = x;
+	wall.y = y;		
+	wall.blood = 20;
+	wall.souls = 0;
+	walls.push(wall);
+	blood -= wall.blood;
+	souls -= wall.souls;
+	UpdateHUD();
+}
+
+function PlaceDemon(ctx, x, y) {
+	ctx.beginPath();
+	ctx.strokeStyle = 'rgba(255, 150, 150, 1)';
+	ctx.fillStyle = 'rgba(105, 50, 50, 1)';
+	ctx.rect(x, y, elSize, elSize);
+	ctx.stroke();
+	ctx.fill();
+	ctx.closePath();
+	
+	var demon = new Demon();
+	demon.x = x;
+	demon.y = y;
+	demon.atk = 1;	
+	demon.range = 7;
+	demon.blood = 50;
+	demon.souls = 0;
+	demons.push(demon);
+	blood -= demon.blood;
+	souls -= demon.souls;
+	UpdateHUD();
+}
+
+function UpdateHUD() {
+	$('#blood').text('blood: ' + blood);
+	$('#souls').text('souls: ' + souls);
+}
+
 function init() {
+	blood = 200;
+	souls = 0;
+	fps = 24;
+	counter = 0;
+	sinnerSpawnCount = 0;
+	UpdateHUD();
 	drawGrid();
 	var elem = document.getElementById('canvas2'),
     elemLeft = elem.offsetLeft,
@@ -104,39 +198,25 @@ function init() {
 		var x = mouse.x - (mouse.x % elSize);
 		var y = mouse.y - (mouse.y % elSize);
 		
-		ctx.beginPath();
-		ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-		ctx.fillStyle = 'rgba(105, 105, 105, 1)';
-		ctx.rect(x, y, elSize, elSize);
-		ctx.stroke();
-		ctx.fill();
-		ctx.closePath();
-		
-		var wall = new Wall();
-		wall.x = x;
-		wall.y = y;		
-		walls.push(wall);
-		
+		var unit = $('input[name=units]:checked').val();		
+		if (unit === "wall" && blood >= 20)
+			PlaceWall(ctx, x, y);
+		if (unit === "demon1" && blood >= 50)
+			PlaceDemon(ctx, x, y);
+		if (unit === "demon2" && blood >= 50)
+			PlaceDemon(ctx, x, y);
 		//console.log(mouse.x + "," + mouse.y);
 	}, false);
 	
 	$('#start').click(function() {	
 		stop = false;
-		startAnimating(24);
+		startAnimating(fps);
 	});
 	$('#stop').click(function() {		
-		stop = true;
+		stop = !stop;
 	});
 	$('#add').click(function() {
-		var sinner = new Sinner();
-		sinner.x = 7;
-		sinner.sx = 7;
-		sinner.y = 193;
-		sinner.sy = 193;
-		sinner.goingForward = true;
-		sinner.fillStyle = 'rgba(205, 205, 205, 1)';
-		sinner.strokeStyle = 'rgba(255, 255, 255, 1)';
-		sinners.push(sinner);
+		SpawnSinner();
 	});
 }
 
@@ -159,7 +239,7 @@ function drawGrid() {
 	ctx.save();
 	
 	ctx.beginPath();
-	ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
+	ctx.strokeStyle = 'rgba(170, 250, 255, 1)';
 	ctx.rect(0, 180, elSize, elSize);
 	ctx.stroke();
 	ctx.closePath();
@@ -182,6 +262,22 @@ function collidesWithWall(x, y) {
 	return collides;
 }
 
+function demonInRange(sinner) {	
+	demons.forEach(function(demon) {
+		if ((sinner.y+sinnerRadius >= demon.y-demon.range && sinner.y+sinnerRadius <= demon.y + elSize 
+			&& sinner.x+sinnerRadius >= demon.x-demon.range && sinner.x <= demon.x+sinnerRadius + elSize) ||
+			(sinner.y-sinnerRadius >= demon.y+demon.range && sinner.y-sinnerRadius <= demon.y + elSize 
+			&& sinner.x-sinnerRadius >= demon.x+demon.range && sinner.x-sinnerRadius <= demon.x + elSize)) {
+			sinner.hp -= demon.atk;
+		}	
+	});
+}
+
+function remove(array, element) {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
+}
+
 var goingUp = false;
 var goingUpFail = false;
 var goingDown = false;
@@ -191,7 +287,7 @@ var goingForwardFail = false;
 var goingBackward = false;
 var goingBackwardFail = false;
 
-function ChooseDirection(sinner) {
+function chooseDirection(sinner) {
 	var xchange = 0; 
 	var ychange = 0; 
 	
@@ -300,18 +396,31 @@ function draw() {
 	ctx.globalCompositeOperation = 'destination-over';
 	ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
 	
-	sinners.forEach(function(sinner) {
-		ctx.fillStyle = sinner.fillStyle;
-		ctx.strokeStyle = sinner.strokeStyle;
-		ctx.beginPath();
-		ChooseDirection(sinner);
-		ctx.arc(sinner.x, sinner.y, sinnerRadius, 0, 2 * Math.PI);		
-		ctx.stroke();
-		ctx.fill();
-		ctx.closePath();	
+	sinners.forEach(function(sinner) {		
+			chooseDirection(sinner);
+			demonInRange(sinner);
+			
+			ctx.fillStyle = sinner.fillStyle;
+			ctx.strokeStyle = sinner.strokeStyle;
+			ctx.beginPath();
+			ctx.arc(sinner.x, sinner.y, sinnerRadius, 0, 2 * Math.PI);		
+			ctx.stroke();
+			ctx.fill();
+			ctx.fillText(sinner.hp,sinner.x - 7, sinner.y - 10);
+			ctx.closePath();	
+		if (sinner.hp <= 0) {
+			remove(sinners, sinner);
+			blood += sinner.blood;
+			souls += sinner.souls;
+			UpdateHUD();
+		}
 	});
 	
-	
+	counter++;
+	if (counter / fps > sinnerSpawnRate) {
+		counter = 0;
+		SpawnSinner();
+	}
 	//window.requestAnimationFrame(draw);
 }
 
