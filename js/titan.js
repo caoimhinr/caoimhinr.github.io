@@ -9,7 +9,7 @@ function Player() {
 function Stat(){
 	return {
 		Level: 0,
-		Team: 0,
+		Team: 0, //1 = Dark, 2 = Water, 3 = Wood, 4 = Light, 5 = Fire
 		Damage: 0
 		//Titan : 0
 	};

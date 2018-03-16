@@ -1,0 +1,118 @@
+<html>
+    <head>		
+		<title>A11iance Regional Defense Simulator</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />		
+        <!--load scripts--> 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>	
+		<script type="text/javascript" src="js/titan.js"></script>	
+		<style type="text/css">
+			html, 
+			body {min-height:100%; padding:0; margin:0; color: #fff;}
+			input,
+			select,
+			button,
+			option { color: #000; }
+			img { display: block; max-width:1024px; max-height:212px; width: auto; height: auto;}
+			#wrapper {position:absolute; top:0; bottom:0; left:0; right:0;}
+			
+			.table {display:table; width:500px; height:100%; margin:auto;}
+			.row {display:table-row;}
+			.cell {display:table-cell;}
+			
+			.middle {background-color:#17383F; height:100%;}
+			.top {background-color:#17383F;}
+			.bottom {background-color:#000;}
+			.container {padding:0px;}
+		</style>
+    </head>
+	<body>
+	 <div id="wrapper">
+        <div class="table">
+            <div class="top row">
+                <div class="cell">
+					<img src="content/img/banner.png" alt="banner" /></div>
+            </div>
+            <div class="middle row">
+                <div class="container cell">
+					<p style="text-align: center; font-size: 1.5em;">A11iance Regional Defense Simulator</p>
+					<div class="row col-md-12">
+						<div class="row col-md-12">
+							<div class="col-md-1">&nbsp;</div>
+							<div class="col-md-1"><a href="#" class="btn btn-primary" id="data">Data</a></div>
+							<div class="col-md-1"><a href="#" class="btn btn-primary" id="simulate">Simulate</a></div>
+						</div>
+						<div id="controls" class="col-md-12">
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-3">
+									<button id="btnExport">EXPORT</button>
+								</div>
+								<div class="col-md-5">
+									<input type="text" id="json" />
+								</div>
+								<div class="col-md-3">
+									<button id="btnImport">IMPORT</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">
+									<label for="cboPlayers">Members</label>
+								</div>
+								<div class="col-md-7">
+									<select id="cboPlayers"></select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-1">&nbsp;</div>
+								<div class="col-md-2">
+									<label for="playerName">Member</label>
+								</div>
+								<div class="col-md-4">
+									<input type="text" id="playerName" />
+								</div>
+								<div class="col-md-1">
+									<input type="number" id="playerRank" value="0" style="width:35px;" />
+								</div>
+								<div class="col-md-2">
+									<button id="btnSave">SAVE</button>
+								</div>
+								<div class="col-md-1">
+									<button id="btnNew">NEW</button>
+								</div>
+								<div class="col-md-1">
+									<button id="btnDelete">DELETE</button>
+								</div>
+								<!--
+								<label for="playerElement">Element</label>
+								<select id="playerElement">
+									<option value="Dark">Dark</option>
+									<option value="Water">Water</option>
+									<option value="Wood">Wood</option>
+									<option value="Light">Light</option>
+									<option value="Fire">Fire</option>
+								</select>
+								<label for="playerLevel">Level</label>
+								<input type="text" id="playerLevel" />
+								<label for="playerDamage">Damage</label>
+								<input type="text" id="playerDamage" />-->
+							</div>
+						</div>
+						<div id="titans" class="row col-md-12"></div>
+					</div>
+                </div>
+            </div>
+            <div class="bottom row">
+                <div class="cell" style="text-align: center;">
+					<img src="content/img/monkas.png" alt="monkas" style="float: left;" />
+					<img src="content/img/monkas.png" alt="monkas" style="float: right;" />
+				</div>
+            </div>
+        </div>
+    </div>
+	</body>
+</html>
