@@ -54,10 +54,12 @@ const curPos = {
 var sinnerRadius = 5;
 
 function Sinner() {
+	var id = 0;
 	var x = 0;
 	var y = 0;
 	var sx = 0;
 	var sy = 0;
+	var speed = 1;
 	var goingUp = false;
 	var goingUpFail = false;
 	var goingDown = false;
@@ -91,10 +93,12 @@ function Wall() {
 
 function SpawnSinner() {	
 	var sinner = new Sinner();
+	sinner.id = sinnerSpawnCount;
 	sinner.x = 7;
 	sinner.sx = 7;
 	sinner.y = 193;
 	sinner.sy = 193;
+	sinner.speed = 30;
 	sinner.goingForward = true;
 	sinner.fillStyle = 'rgba(205, 205, 205, 1)';
 	sinner.strokeStyle = 'rgba(255, 255, 255, 1)';
@@ -118,6 +122,7 @@ function Demon() {
 	var range;
 	var blood;
 	var souls;
+	var targetId;
 }
 
 var demons = [];
@@ -158,6 +163,7 @@ function PlaceDemon(ctx, x, y) {
 	demon.range = 7;
 	demon.blood = 50;
 	demon.souls = 0;
+	demon.targetId = 0;
 	demons.push(demon);
 	blood -= demon.blood;
 	souls -= demon.souls;
@@ -172,7 +178,7 @@ function UpdateHUD() {
 function init() {
 	blood = 2000000;
 	souls = 0;
-	fps = 24;
+	fps = 36;
 	counter = 0;
 	sinnerSpawnCount = 0;
 	UpdateHUD();
@@ -183,7 +189,14 @@ function init() {
     ctx = document.getElementById('canvas1').getContext('2d'),
     elements = [];
 	// Add event listener for `click` events.
-	elem.addEventListener('click', function(event) {
+	$('#canvas1').bind('contextmenu', function(e){
+		return false;
+	}); 
+	$('#canvas2').bind('contextmenu', function(e){
+		return false;
+	}); 
+	
+	elem.addEventListener('mousedown', function(event) {	
 		var bounds = elem.getBoundingClientRect();
 		// get the mouse coordinates, subtract the canvas top left and any scrolling
 		mouse.x = event.pageX - bounds.left - scrollX;
@@ -195,18 +208,23 @@ function init() {
 		// then scale to canvas coordinates by multiplying the normalized coords with the canvas resolution
 		mouse.x *= elem.width;
 		mouse.y *= elem.height;
-      
+	  
 		var x = mouse.x - (mouse.x % elSize);
 		var y = mouse.y - (mouse.y % elSize);
-		
-		var unit = $('input[name=units]:checked').val();		
-		if (unit === "wall" && blood >= 20)
-			PlaceWall(ctx, x, y);
-		if (unit === "demon1" && blood >= 50)
-			PlaceDemon(ctx, x, y);
-		if (unit === "demon2" && blood >= 50)
-			PlaceDemon(ctx, x, y);
-		//console.log(mouse.x + "," + mouse.y);
+			
+		if (event.button == 0 || event.button == 1) {
+			
+			var unit = $('input[name=units]:checked').val();		
+			if (unit === "wall" && blood >= 20)
+				PlaceWall(ctx, x, y);
+			if (unit === "demon1" && blood >= 50)
+				PlaceDemon(ctx, x, y);
+			if (unit === "demon2" && blood >= 50)
+				PlaceDemon(ctx, x, y);
+			//console.log(mouse.x + "," + mouse.y);
+		} else if (event.button == 2) {
+			deleteAt(x, y);
+		}
 	}, false);
 	
 	$('#start').click(function() {	
@@ -269,18 +287,42 @@ function collidesWithWall(x, y) {
 	return collides;
 }
 
-function demonInRange(sinner) {	
+function deleteAt(x, y) {
+	walls.forEach(function(wall) {
+		if ((y >= wall.y && y <= wall.y + elSize 
+			&& x >= wall.x && x <= wall.x + elSize) ||
+			(y >= wall.y && y <= wall.y + elSize 
+			&& x >= wall.x && x <= wall.x + elSize)) {
+			remove(walls, wall);
+		}	
+	});
 	demons.forEach(function(demon) {
-		if ((sinner.y+sinnerRadius >= demon.y-demon.range && sinner.y+sinnerRadius <= demon.y + elSize 
+		if ((y >= demon.y && y <= demon.y + elSize 
+			&& x >= demon.x && x <= demon.x + elSize) ||
+			(y >= demon.y && y <= demon.y + elSize 
+			&& x >= demon.x && x <= demon.x + elSize)) {
+			remove(demons, demon);
+		}	
+	});
+	draw();
+}
+
+function demonInRange(sinner) {	
+	demons.forEach(function(demon) {		
+		if (demon.targetId == 0 && (
+			(sinner.y+sinnerRadius >= demon.y-demon.range && sinner.y+sinnerRadius <= demon.y + elSize 
 			&& sinner.x+sinnerRadius >= demon.x-demon.range && sinner.x <= demon.x+sinnerRadius + elSize) ||
 			(sinner.y-sinnerRadius >= demon.y+demon.range && sinner.y-sinnerRadius <= demon.y + elSize 
-			&& sinner.x-sinnerRadius >= demon.x+demon.range && sinner.x-sinnerRadius <= demon.x + elSize)) {
+			&& sinner.x-sinnerRadius >= demon.x+demon.range && sinner.x-sinnerRadius <= demon.x + elSize))) {
+			demon.targetId = sinner.id;
 			sinner.hp -= demon.atk;
+			if (sinner.hp <= 0)
+				demon.targetId = 0;
 		}	
 	});
 }
 
-function remove(array, element) {
+function remove(array, element) {	
     const index = array.indexOf(element);
     array.splice(index, 1);
 }
@@ -332,7 +374,7 @@ function chooseDirection(sinner) {
 			if (moveUp || moveDown) {
 				if (moveUp && !moveDown) sinner.goingUp = true;
 				else if (!moveUp && moveDown) sinner.goingUp = false;
-				else inner.goingUp = Math.random() >= 0.5;
+				else sinner.goingUp = Math.random() >= 0.5;
 				sinner.goingDown = !sinner.goingUp;
 			}
 			else {			
@@ -352,7 +394,7 @@ function chooseDirection(sinner) {
 			if (moveUp || moveDown) {
 				if (moveUp && !moveDown) sinner.goingUp = true;
 				else if (!moveUp && moveDown) sinner.goingUp = false;
-				else inner.goingUp = Math.random() >= 0.5;
+				else sinner.goingUp = Math.random() >= 0.5;
 				sinner.goingDown = !sinner.goingUp;
 			}
 			else {					
@@ -372,7 +414,7 @@ function chooseDirection(sinner) {
 			if (moveForward || moveBackward) {
 				if (moveForward && !moveBackward) sinner.goingForward = true;
 				else if (!moveForward && moveBackward) sinner.goingForward = false;
-				else inner.goingForward = Math.random() >= 0.5;
+				else sinner.goingForward = Math.random() >= 0.5;
 				sinner.goingBackward = !sinner.goingForward;
 			}
 			else {		
@@ -392,7 +434,7 @@ function chooseDirection(sinner) {
 			if (moveForward || moveBackward) {
 				if (moveForward && !moveBackward) sinner.goingForward = true;
 				else if (!moveForward && moveBackward) sinner.goingForward = false;
-				else inner.goingForward = Math.random() >= 0.5;
+				else sinner.goingForward = Math.random() >= 0.5;
 				sinner.goingBackward = !sinner.goingForward;
 			}
 			else {	
@@ -409,7 +451,7 @@ function chooseDirection(sinner) {
 		
 		if (sinner.goingForward) {
 			//console.log('change forward');
-			xnew = sinner.x + 1; 
+			xnew = sinner.x + 1;
 			ynew = sinner.y;
 		}
 		if (sinner.goingBackward) {
@@ -446,6 +488,9 @@ function draw() {
 	ctx.globalCompositeOperation = 'destination-over';
 	ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
 	
+	demons.forEach(function(demon) {	
+		demon.targetId = 0;
+	});
 	sinners.forEach(function(sinner) {		
 			chooseDirection(sinner);
 			demonInRange(sinner);
