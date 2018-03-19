@@ -170,7 +170,7 @@ function UpdateHUD() {
 }
 
 function init() {
-	blood = 200;
+	blood = 2000000;
 	souls = 0;
 	fps = 24;
 	counter = 0;
@@ -218,6 +218,12 @@ function init() {
 	});
 	$('#add').click(function() {
 		SpawnSinner();
+	});
+	$('#saveMap').click(function() {
+		SaveMap();
+	});
+	$('#loadMap').click(function() {
+		LoadMap();
 	});
 }
 
@@ -307,53 +313,97 @@ function chooseDirection(sinner) {
 	while (collidesWithWall(xnew, ynew)) {
 		//console.log('col');
 		
+		//look ahead
+		var moveForward = !collidesWithWall(sinner.x + elSize, sinner.y);
+		var moveBackward = !collidesWithWall(sinner.x - elSize, sinner.y);
+		var moveUp = !collidesWithWall(sinner.x, sinner.y - elSize);
+		var moveDown = !collidesWithWall(sinner.x, sinner.y + elSize);
+		
+		var optionCount = 0;
+		if (moveForward) optionCount++;
+		if (moveBackward) optionCount++;
+		if (moveUp) optionCount++;
+		if (moveDown) optionCount++;
+		
 		if (sinner.goingForward) {
 			sinner.goingForward = false;
 			sinner.goingForwardFail = true;
-												
-			if (!sinner.goingUpFail && !sinner.goingDownFail) {
-				sinner.goingUp = Math.random() >= 0.5;
+			
+			if (moveUp || moveDown) {
+				if (moveUp && !moveDown) sinner.goingUp = true;
+				else if (!moveUp && moveDown) sinner.goingUp = false;
+				else inner.goingUp = Math.random() >= 0.5;
 				sinner.goingDown = !sinner.goingUp;
-			} else if (!sinner.goingUpFail)
-				sinner.goingUp = true;
-			else
-				sinner.goingDown = true;			
+			}
+			else {			
+				if (!sinner.goingUpFail && !sinner.goingDownFail) {
+					sinner.goingUp = Math.random() >= 0.5;
+					sinner.goingDown = !sinner.goingUp;
+				} else if (!sinner.goingUpFail)
+					sinner.goingUp = true;
+				else
+					sinner.goingDown = true;	
+			}		
 			
 		} else if (sinner.goingBackward) {
 			sinner.goingBackward = false;
 			sinner.goingBackwardFail = true;
-								
-			if (!sinner.goingUpFail && !sinner.goingDownFail) {
-				sinner.goingUp = Math.random() >= 0.5;
+				
+			if (moveUp || moveDown) {
+				if (moveUp && !moveDown) sinner.goingUp = true;
+				else if (!moveUp && moveDown) sinner.goingUp = false;
+				else inner.goingUp = Math.random() >= 0.5;
 				sinner.goingDown = !sinner.goingUp;
-			} else if (!sinner.goingUpFail)
-				sinner.goingUp = true;
-			else
-				sinner.goingDown = true;
+			}
+			else {					
+				if (!sinner.goingUpFail && !sinner.goingDownFail) {
+					sinner.goingUp = Math.random() >= 0.5;
+					sinner.goingDown = !sinner.goingUp;
+				} else if (!sinner.goingUpFail)
+					sinner.goingUp = true;
+				else
+					sinner.goingDown = true;
+			}
 			
 		} else if (sinner.goingUp) {
 			sinner.goingUp = false;
 			sinner.goingUpFail = true;
-						
-			if (!sinner.goingForwardFail && !sinner.goingBackwardFail) {
-				sinner.goingForward = Math.random() >= 0.5;
+					
+			if (moveForward || moveBackward) {
+				if (moveForward && !moveBackward) sinner.goingForward = true;
+				else if (!moveForward && moveBackward) sinner.goingForward = false;
+				else inner.goingForward = Math.random() >= 0.5;
 				sinner.goingBackward = !sinner.goingForward;
-			} else if (!sinner.goingForwardFail)
-				sinner.goingForward = true;
-			else
-				sinner.goingBackward = true;
+			}
+			else {		
+				if (!sinner.goingForwardFail && !sinner.goingBackwardFail) {
+					sinner.goingForward = Math.random() >= 0.5;
+					sinner.goingBackward = !sinner.goingForward;
+				} else if (!sinner.goingForwardFail)
+					sinner.goingForward = true;
+				else
+					sinner.goingBackward = true;
+			}
 			
 		} else if (sinner.goingDown) {
 			sinner.goingDown = false;
 			sinner.goingDownFail = true;
 			
-			if (!sinner.goingForwardFail && !sinner.goingBackwardFail) {
-				sinner.goingForward = Math.random() >= 0.5;
+			if (moveForward || moveBackward) {
+				if (moveForward && !moveBackward) sinner.goingForward = true;
+				else if (!moveForward && moveBackward) sinner.goingForward = false;
+				else inner.goingForward = Math.random() >= 0.5;
 				sinner.goingBackward = !sinner.goingForward;
-			} else if (!sinner.goingForwardFail)
-				sinner.goingForward = true;
-			else
-				sinner.goingBackward = true;
+			}
+			else {	
+				if (!sinner.goingForwardFail && !sinner.goingBackwardFail) {
+					sinner.goingForward = Math.random() >= 0.5;
+					sinner.goingBackward = !sinner.goingForward;
+				} else if (!sinner.goingForwardFail)
+					sinner.goingForward = true;
+				else
+					sinner.goingBackward = true;
+			}
 			
 		}
 		
@@ -384,7 +434,6 @@ function chooseDirection(sinner) {
 	sinner.goingDownFail = false;
 	sinner.goingForwardFail = false;
 	sinner.goingBackwardFail = false;
-
 	
 	sinner.x = xnew;
 	sinner.y = ynew;
@@ -423,6 +472,30 @@ function draw() {
 		SpawnSinner();
 	}
 	//window.requestAnimationFrame(draw);
+}
+
+function SaveMap() {
+	Cookies.set('map', { walls : walls, demons : demons }, { expires: 7 });
+}
+
+function LoadMap() {	
+	var mapCookie = Cookies.getJSON('map');
+	if (typeof(mapCookie) !== 'undefined') {
+		walls = mapCookie.walls;
+		demons = mapCookie.demons;
+	} else {
+		walls = [];
+		demons = [];
+	}
+	
+	var ctx = document.getElementById('canvas1').getContext('2d');
+	walls.forEach(function(wall) {	
+		PlaceWall(ctx, wall.x, wall.y);
+	});
+	
+	demons.forEach(function(demon) {
+		PlaceDemon(ctx, demon.x, demon.y);
+	});
 }
 
 $(document).ready(function() {
