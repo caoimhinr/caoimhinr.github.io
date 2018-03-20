@@ -127,15 +127,7 @@ function Demon() {
 
 var demons = [];
 
-function PlaceWall(ctx, x, y) {
-	ctx.beginPath();
-	ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-	ctx.fillStyle = 'rgba(105, 105, 105, 1)';
-	ctx.rect(x, y, elSize, elSize);
-	ctx.stroke();
-	ctx.fill();
-	ctx.closePath();
-	
+function PlaceWall(ctx, x, y) {	
 	var wall = new Wall();
 	wall.x = x;
 	wall.y = y;		
@@ -145,17 +137,20 @@ function PlaceWall(ctx, x, y) {
 	blood -= wall.blood;
 	souls -= wall.souls;
 	UpdateHUD();
+	DrawWall(ctx, x, y);
+}
+
+function DrawWall(ctx, x, y) {
+	ctx.beginPath();
+	ctx.strokeStyle = 'rgba(205, 205, 205, 1)';
+	ctx.fillStyle = 'rgba(65, 65, 125, 1)';
+	//ctx.rect(x, y, elSize, elSize);
+	ctx.fillRect(x, y, elSize, elSize);
+	ctx.strokeRect(x, y, elSize, elSize);
+	ctx.closePath();
 }
 
 function PlaceDemon(ctx, x, y) {
-	ctx.beginPath();
-	ctx.strokeStyle = 'rgba(255, 150, 150, 1)';
-	ctx.fillStyle = 'rgba(105, 50, 50, 1)';
-	ctx.rect(x, y, elSize, elSize);
-	ctx.stroke();
-	ctx.fill();
-	ctx.closePath();
-	
 	var demon = new Demon();
 	demon.x = x;
 	demon.y = y;
@@ -168,6 +163,17 @@ function PlaceDemon(ctx, x, y) {
 	blood -= demon.blood;
 	souls -= demon.souls;
 	UpdateHUD();
+	DrawDemon(ctx, x, y);
+}
+
+function DrawDemon(ctx, x, y) {
+	ctx.beginPath();
+	ctx.strokeStyle = 'rgba(255, 150, 150, 1)';
+	ctx.fillStyle = 'rgba(105, 50, 50, 1)';
+	//ctx.rect(x, y, elSize, elSize);
+	ctx.fillRect(x, y, elSize, elSize);
+	ctx.strokeRect(x, y, elSize, elSize);
+	ctx.closePath();
 }
 
 function UpdateHUD() {
@@ -248,6 +254,7 @@ function init() {
 function drawGrid() {
 	var ctx = document.getElementById('canvas1').getContext('2d');
 	//ctx.globalCompositeOperation = 'destination-over';
+	ctx.beginPath();
 	ctx.strokeStyle = 'rgba(105, 105, 105, 1)';
 	for (var i = 0; i < 800 ; i += elSize)
 	{
@@ -261,7 +268,7 @@ function drawGrid() {
 		ctx.lineTo(800, i);
 		ctx.stroke();
 	}
-	ctx.save();
+	ctx.closePath();
 	
 	ctx.beginPath();
 	ctx.strokeStyle = 'rgba(170, 250, 255, 1)';
@@ -289,22 +296,18 @@ function collidesWithWall(x, y) {
 
 function deleteAt(x, y) {
 	walls.forEach(function(wall) {
-		if ((y >= wall.y && y <= wall.y + elSize 
-			&& x >= wall.x && x <= wall.x + elSize) ||
-			(y >= wall.y && y <= wall.y + elSize 
-			&& x >= wall.x && x <= wall.x + elSize)) {
+		if (y >= wall.y && y <= wall.y + elSize 
+			&& x >= wall.x && x <= wall.x + elSize) {
 			remove(walls, wall);
 		}	
 	});
 	demons.forEach(function(demon) {
-		if ((y >= demon.y && y <= demon.y + elSize 
-			&& x >= demon.x && x <= demon.x + elSize) ||
-			(y >= demon.y && y <= demon.y + elSize 
-			&& x >= demon.x && x <= demon.x + elSize)) {
+		if (y >= demon.y && y <= demon.y + elSize 
+			&& x >= demon.x && x <= demon.x + elSize) {
 			remove(demons, demon);
 		}	
 	});
-	draw();
+	DrawMap();
 }
 
 function demonInRange(sinner) {	
@@ -532,14 +535,22 @@ function LoadMap() {
 		walls = [];
 		demons = [];
 	}
+	DrawMap();
+}
+
+function DrawMap() {
+	var canvas = document.getElementById('canvas1');
+	var ctx = canvas.getContext('2d');
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	
-	var ctx = document.getElementById('canvas1').getContext('2d');
+	drawGrid();
+	
 	walls.forEach(function(wall) {	
-		PlaceWall(ctx, wall.x, wall.y);
+		DrawWall(ctx, wall.x, wall.y);
 	});
 	
 	demons.forEach(function(demon) {
-		PlaceDemon(ctx, demon.x, demon.y);
+		DrawDemon(ctx, demon.x, demon.y);
 	});
 }
 
