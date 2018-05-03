@@ -62,7 +62,7 @@
 		<tbody>
 			<tr>
 				<td colspan="2"><input type="number" class="u-max-full-width input-number" id="number" /></td>
-				<td><button class="button-primary play"><i class="fas fa-play"></i></button>
+				<td><!--<button class="button-primary play"><i class="fas fa-play"></i></button>-->
 					<button class="button-primary record"><i class="fas fa-microphone"></i></button></td>
 			</tr>
 			<tr>
@@ -108,10 +108,10 @@
 			var number = parseInt($('#number').val());
 			if (number < 0) {
 				$('.record').show();
-				$('.play').hide();
+				//$('.play').hide();
 			} else {
 				$('.record').hide();
-				$('.play').show();
+				//$('.play').show();
 			}
 		});
 		$('.record').on('click', function() {
