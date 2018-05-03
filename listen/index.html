@@ -31,6 +31,10 @@
 	button {
 		font-size: 16pt;
 	}
+	
+	.record {
+		display: none;
+	}
   </style>
 
   <!-- Favicon
@@ -53,13 +57,12 @@
         <p>Enter a number below.</p>
       </div>
     </div>
-	<div class="row">
-		<div class="three columns">
-			<input type="number" class="u-max-full-width input-number" id="number" />
-		</div>
-	</div>
 	<table>
 		<tbody>
+			<tr>
+				<td colspan="2"><input type="number" class="u-max-full-width input-number" id="number" /></td>
+				<td><button class="button-primary record">O</button></td>
+			</tr>
 			<tr>
 				<td><button class="button-primary button-text dial">1</button></td>
 				<td><button class="button-primary dial">2</button></td>
@@ -88,6 +91,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 <script>
+	var recording = false;
 	$(document).ready(function() {
 		$('.dial').on('click', function() {
 			var button = $(this);
@@ -99,7 +103,21 @@
 			$('#number').val('');
 		});
 		$('.ok').on('click', function() {
-			$('#number').val('');
+			var number = parseInt($('#number').val());
+			if (number < 0) {
+				$('.record').show();
+			} else {
+				$('.record').hide();
+			}
+		});
+		$('.record').on('click', function() {
+			if (recording) {
+				$('.record').css('color', '');
+				recording = false;
+			} else {
+				$('.record').css('color', '#F00');
+				recording = true;
+			}
 		});
 	});
 </script>
