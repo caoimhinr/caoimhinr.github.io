@@ -16,6 +16,7 @@
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -61,7 +62,8 @@
 		<tbody>
 			<tr>
 				<td colspan="2"><input type="number" class="u-max-full-width input-number" id="number" /></td>
-				<td><button class="button-primary record">O</button></td>
+				<td><button class="button-primary play"><i class="fas fa-play"></i></button>
+					<button class="button-primary record"><i class="fas fa-microphone"></i></button></td>
 			</tr>
 			<tr>
 				<td><button class="button-primary button-text dial">1</button></td>
@@ -106,8 +108,10 @@
 			var number = parseInt($('#number').val());
 			if (number < 0) {
 				$('.record').show();
+				$('.play').hide();
 			} else {
 				$('.record').hide();
+				$('.play').show();
 			}
 		});
 		$('.record').on('click', function() {
