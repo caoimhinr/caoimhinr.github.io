@@ -25,6 +25,10 @@
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
+  
+  <!-- JAVASCRIPT
+  -------------------------------------------------- -->  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -34,52 +38,57 @@
   <div class="container">
     <div class="row">
       <div class="one-half column" style="margin-top: 25%">
-        <h4>Basic Page</h4>
-        <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
+        <h4>Listen</h4>
+        <p>Enter a number below.</p>
       </div>
     </div>
 	<div class="row">
-		<div class="one column">
-			<button class="button-primary">1</button>
-		</div>
-		<div class="one column">
-			<button class="button-primary">2</button>
-		</div>
-		<div class="one column">
-			<button class="button-primary">3</button>
+		<div class="three columns">
+			<input class="u-full-width" id="number" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="one column">
-			<button class="button-primary">4</button>
+			<button class="button-primary dial">1</button>
 		</div>
 		<div class="one column">
-			<button class="button-primary">5</button>
+			<button class="button-primary dial">2</button>
 		</div>
 		<div class="one column">
-			<button class="button-primary">6</button>
-		</div>
-	</div>
-	<div class="row">
-		<div class="one column">
-			<button class="button-primary">7</button>
-		</div>
-		<div class="one column">
-			<button class="button-primary">8</button>
-		</div>
-		<div class="one column">
-			<button class="button-primary">9</button>
+			<button class="button-primary dial">3</button>
 		</div>
 	</div>
 	<div class="row">
 		<div class="one column">
-			<button class="button-primary">0</button>
+			<button class="button-primary dial">4</button>
 		</div>
 		<div class="one column">
-			<button class="button-primary">X</button>
+			<button class="button-primary dial">5</button>
 		</div>
 		<div class="one column">
-			<button class="button-primary">OK</button>
+			<button class="button-primary dial">6</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="one column">
+			<button class="button-primary dial">7</button>
+		</div>
+		<div class="one column">
+			<button class="button-primary dial">8</button>
+		</div>
+		<div class="one column">
+			<button class="button-primary dial">9</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="one column">
+			<button class="button-primary dial">0</button>
+		</div>
+		<div class="one column">
+			<button class="clear">X</button>
+		</div>
+		<div class="one column">
+			<button class="button-success ok">&#10004;</button>
 		</div>
 	</div>
   </div>
@@ -87,4 +96,20 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+<script>
+	$(document).ready(function() {
+		$('.dial').on('click', function() {
+			var button = $(this);
+			var value = $('#number').val();
+			value = value + button.html();
+			$('#number').val(value);
+		});
+		$('.clear').on('click', function() {
+			$('#number').val('');
+		});
+		$('.ok').on('click', function() {
+			$('#number').val('');
+		});
+	});
+</script>
 </html>
