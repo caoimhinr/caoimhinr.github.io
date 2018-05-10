@@ -96,6 +96,7 @@
 </body>
 <script>
 	var recording = false;
+	var initialized = false;
 	$(document).ready(function() {
 		$('.dial').on('click', function() {
 			var button = $(this);
@@ -109,10 +110,18 @@
 		$('.ok').on('click', function() {
 			var number = parseInt($('#number').val());
 			if (number < 0) {
+				if (!initialized) {
+					init();
+					initialized = true;
+				}
 				$('.record').show();
 				//$('.play').hide();
 			} else {
 				$('.record').hide();
+				var file = 'audio/' + number + '.wav';
+				console.log('playing ' + file);
+				var audio = new Audio(file);
+				audio.play();
 				//$('.play').show();
 			}
 		});
@@ -160,14 +169,14 @@
       au.controls = true;
       au.src = url;
       hf.href = url;
-      hf.download = new Date().toISOString() + '.wav';
+      hf.download = Math.abs(parseInt($('#number').val())) + '.wav';
       hf.innerHTML = hf.download;
       li.appendChild(au);
       li.appendChild(hf);
       recordingslist.appendChild(li);
     });
   }
-  window.onload = function init() {
+  /*window.onload = */function init() {
     try {
       // webkit shim
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
