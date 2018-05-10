@@ -107,23 +107,15 @@
 		$('.clear').on('click', function() {
 			$('#number').val('');
 		});
-		$('.ok').on('click', function() {
-			var number = parseInt($('#number').val());
-			if (number < 0) {
-				if (!initialized) {
-					init();
-					initialized = true;
-				}
-				$('.record').show();
-				//$('.play').hide();
-			} else {
-				$('.record').hide();
-				var file = 'audio/' + number + '.wav';
-				console.log('playing ' + file);
-				var audio = new Audio(file);
-				audio.play();
-				//$('.play').show();
+		$('#number').on('keydown', function(e) {
+			if(e.keyCode == 13)
+			{
+				ok();
+				return false; // returning false will prevent the event from bubbling up.
 			}
+		});
+		$('.ok').on('click', function() {
+			ok();
 		});
 		$('.record').on('click', function() {
 			if (recording) {
@@ -138,16 +130,35 @@
 		});
 	});
 	
-	 var audio_context;
-  var recorder;
-  function startUserMedia(stream) {
-    var input = audio_context.createMediaStreamSource(stream);
-    // Uncomment if you want the audio to feedback directly
-    //input.connect(audio_context.destination);
-    //__log('Input connected to audio context destination.');
-    
-    recorder = new Recorder(input);
-  }
+	function ok() {
+		var number = parseInt($('#number').val());
+		if (number < 0) {
+			if (!initialized) {
+				init();
+				initialized = true;
+			}
+			$('.record').show();
+			//$('.play').hide();
+		} else {
+			$('.record').hide();
+			var file = 'audio/' + number + '.wav';
+			var audio = new Audio(file);
+			audio.play();
+			//$('.play').show();
+		}
+	}
+	
+	var audio_context;
+	var recorder;
+	
+	function startUserMedia(stream) {
+		var input = audio_context.createMediaStreamSource(stream);
+		// Uncomment if you want the audio to feedback directly
+		//input.connect(audio_context.destination);
+		//__log('Input connected to audio context destination.');
+
+		recorder = new Recorder(input);
+	}
   function startRecording() {
     recorder && recorder.record();
   }
