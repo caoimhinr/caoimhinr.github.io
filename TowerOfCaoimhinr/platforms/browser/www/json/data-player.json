@@ -1,0 +1,10 @@
+[
+	{ "Name":"Caoimhinr", "Stats": { 
+			"Dark": [{ "Level":1, "Damage": -1 }, { "Level":76, "Damage": 1000000 }],
+			"Water": { "Level":1, "Damage": -1 },
+			"Wood": { "Level":1, "Damage": -1 },
+			"Light": { "Level":1, "Damage": -1 },
+			"Fire": { "Level":1, "Damage": -1 }
+		}	
+	}
+]

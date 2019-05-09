@@ -1,0 +1,175 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />	
+	<link rel="stylesheet" href="goal.css" />	
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>	
+	<style>
+		body {
+			font-family: Raleway;
+		}
+		#container {
+			width: 800px;
+		}
+		#header h1 {
+			margin: 5px;
+			padding: 5px;
+		}
+		#content {
+			
+		}
+		h1, h4 {
+			color: #FFC90E;
+		}
+
+		#progress {
+			background: #FFC90E;
+			height: 30px;
+		}
+
+		#progress2 {
+			background: #FFFF00;
+			height: 30px;
+			width: 0%;
+		}
+
+		.name {
+			border: 0;
+			text-align: center;
+			color: #FFC90E;
+			font-size: 2em;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div id="container" class="mx-auto">
+		<div id="header">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAADBSURBVFhH7ZHbDYQwDASpgP7LuDbog/+TroHwOqKVeGwiiGVLO5ovCPEId8klvrO+48eJW8/+t36dB11mDb2/rKH3l7U2FWRZsjcpq4SKLAOhJqslUuJnNRIKTtUSKfGzXhSmUrVESvysh8KkKrVESvysWuHqJ2qJlPhZJcJ1b6klUuJnXQlXtFBLpMTPQuGz1mqJlPhZcNTS26z5hCVFWdsJS3hWPmFJHnqeBa//D22AuYcseLdoCcw9ZDnDZVZKExy5TM9hEiNTAAAAAElFTkSuQmCC"
+				style="float:left;"/>
+			<h1>GOAL</h1>
+		</div>
+		<div id="content"><!--
+			<div class="row">
+				<div class="my-auto col-lg-2 col-md-2 col-sm-2">
+					New Item:
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<input id="txtItem" type="text" class="form-control" />
+				</div>
+				<div class="my-auto col-lg-2 col-md-2 col-sm-2">
+					<button id="btnAddItem" class="btn-default btn-warning">ADD</button>
+				</div>
+				
+			</div>-->
+			<div class="my-4"></div>
+			<div>
+				<input type="text" class="mx-auto name form-control" value="- list name -" />
+			</div>
+			<div class="my-4"></div>
+			<div id="progress">
+				<div id="progress2"></div>
+			</div>
+			<div class="my-4"></div>
+			<div id="lstItems">
+				<div class="checkItem row col-lg-12 col-md-12 col-sm-12">
+					<div class="row col-lg-12 col-md-12 col-sm-12">
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<label class="switch">
+								<input type="checkbox" disabled />
+								<span class="slider round"></span>					
+							</label>						
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<input type="text" class="form-control" />
+							<h4 class="my-auto"></h4>
+						</div>
+						<div class="col-lg-1 col-md-1 col-sm-1">
+							<button class="px-2 btn-sub btn btn-warning" disabled><i class="fas fa-indent"></i></button>
+						</div>
+						<div class="col-lg-1 col-md-1 col-sm-1">
+							<button class="px-2 btn-remove btn btn-warning" disabled><i class="fas fa-trash"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+		</div>
+	</div>
+</body>
+<script>
+$(document).ready(function() {
+	$('#btnAddItem').click(function() {
+		if ($('#txtItem').val() != '') {
+			var clone = $('#checkItem').clone();
+			clone.find('h4').html($('#txtItem').val());
+			$('#lstItems').append(clone);
+			$('#txtItem').val('');
+		}
+	});
+	$('.checkItem input[type=text]').on('keypress', HandleKeyPress);
+	$('.checkItem input[type=checkbox]').on('change', CalcProgress);
+	$('.checkItem .btn-sub').on('click', ToggleIndent);
+	$('.checkItem .btn-remove').on('click', RemoveItem);
+	$('.checkItem input[type=text]').focus();
+	$('.name').focus(function() {
+		var val = $(this).val();
+		if (val == '- list name -') {
+			$(this).val('');
+		}
+	});
+	$('.name').focusout(function() {
+		var val = $(this).val();
+		if (val == '') {
+			$(this).val('- list name -');
+		}
+	});
+});
+
+function HandleKeyPress(e) {		
+	var key = e.which;
+	if(key == 13)  // the enter key code
+	{
+		if ($(this).val() != '') {
+			$(this).next().html($(this).val());
+			var clone = $(this).parent().parent().parent().clone(true);
+			clone.find('h4').html('');
+			clone.find('input[type=text]').val('');
+			clone.find('input[type=checkbox]').prop('checked', '');
+			$('#lstItems').append(clone);
+			clone.find('input').focus();
+			$(this).hide();
+			$(this).parent().parent().find('input[type=checkbox]').prop('disabled', '');
+			$(this).parent().parent().find('button').prop('disabled', '');
+		}
+	}
+}
+
+function CalcProgress() {	
+	var total = $('.checkItem input[type=checkbox]').length - 1;
+	var complete = $('.checkItem input[type=checkbox]:checked').length;	
+
+	$('#progress2').css('width', (complete / total * 100) + '%');
+}
+
+function ToggleIndent() {
+	var parent = $(this).parent().parent().parent();
+	if (parent.hasClass('pl-5')) {
+		parent.removeClass('pl-5');
+	}
+	else {
+		parent.addClass('pl-5');
+	}
+}
+
+function RemoveItem() {
+	var parent = $(this).parent().parent().parent();
+	parent.remove();
+}
+</script>
+</html>
