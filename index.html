@@ -38,11 +38,31 @@
 		  width: 50%;
 		  height: 50%;
 		}
+		
+		.app {
+			height: 175px;
+			width: 175px;
+			margin: 10px;
+			background: #CCC;
+			text-align: center;
+			vertical-align: middle;
+		}
 	</style>
 </head>
 <body>
 	<div id="container">
-		<span>Hidden content</span>
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<div class="app" data-url="https://caoimhinr.github.io/listen">
+					LISTEN
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<div class="app" data-url="https://caoimhinr.github.io/goal">
+					GOAL
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="lockscreenContainer">	
 		<div id="lockscreen" class="center">
@@ -93,6 +113,13 @@
 			
 			checkPattern();
 		});
+		
+		$('.app').click(function() {
+			var url = $(this).attr('data-url');
+			window.location = url;
+		});
+		
+		//$('#lockscreenContainer').fadeOut(500);
 	});
 	
 	function checkPattern() {
