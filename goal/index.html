@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>GOAL ToDo App</title>
+	<link rel="shortcut icon"type="image/x-icon" href="data:image/x-icon;,">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />	
@@ -104,6 +105,14 @@
 	</div>
 </body>
 <script>
+var favIcon = "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAADBSURBVFhH7ZHbDYQwDASpgP7LuDbog/+TroHwOqKVeGwiiGVLO5ovCPEId8klvrO+48eJW8/+t36dB11mDb2/rKH3l7U2FWRZsjcpq4SKLAOhJqslUuJnNRIKTtUSKfGzXhSmUrVESvysh8KkKrVESvysWuHqJ2qJlPhZJcJ1b6klUuJnXQlXtFBLpMTPQuGz1mqJlPhZcNTS26z5hCVFWdsJS3hWPmFJHnqeBa//D22AuYcseLdoCcw9ZDnDZVZKExy5TM9hEiNTAAAAAElFTkSuQmCC";
+
+var docHead = document.getElementsByTagName('head')[0];       
+var newLink = document.createElement('link');
+newLink.rel = 'shortcut icon';
+newLink.href = 'data:image/png;base64,'+favIcon;
+docHead.appendChild(newLink);
+
 $(document).ready(function() {
 	$('#btnAddItem').click(function() {
 		if ($('#txtItem').val() != '') {
