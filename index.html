@@ -39,30 +39,12 @@
 		  width: 50%;
 		  height: 50%;
 		}
-		
-		.app {
-			height: 175px;
-			width: 175px;
-			margin: 10px;
-			background: #CCC;
-			text-align: center;
-			vertical-align: middle;
-		}
 	</style>
 </head>
 <body>
 	<div id="container">
 		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-3">
-				<div class="app" data-url="https://caoimhinr.github.io/listen">
-					LISTEN
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-3">
-				<div class="app" data-url="https://caoimhinr.github.io/goal">
-					GOAL
-				</div>
-			</div>
+			<a href="https://caoimhinr.github.io/listen" class="btn btn-default">Listen</a>
 		</div>
 	</div>
 	<div id="lockscreenContainer">	
@@ -120,7 +102,7 @@
 			window.location = url;
 		});
 		
-		//$('#lockscreenContainer').fadeOut(500);
+		$('#lockscreenContainer').fadeOut(500);
 	});
 	
 	function checkPattern() {
