@@ -3,6 +3,7 @@
   box-shadow: 2px 2px 3px black;
   width:320px;
   height:240px;
+  border-radius: 50% !important;
 }
 
 #photo {
@@ -21,7 +22,7 @@
 img.rounded {
 	border-radius: 50% !important;
   height: 320px;
-  width: 240px;
+  width: 160px;
 }
 
 .output {
