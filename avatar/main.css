@@ -15,11 +15,11 @@
   margin: 0 auto;
   height: 100%;
   width: auto;*/
+  
 }
 
 img.rounded {
-  object-fit: cover;
-  border-radius: 50%;
+	border-radius: 50% !important;
   height: 100px;
   width: 100px;
 }
