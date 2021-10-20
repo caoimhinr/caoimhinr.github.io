@@ -1,0 +1,21 @@
+.santas-arm {
+  animation: wavingArm 2s ease-in-out infinite;
+  top: 100px;
+  left: 100px;
+  position: relative;
+  background: black;
+  width: 200px;
+  height: 50px;
+  transform-origin: left center;
+}
+@keyframes wavingArm {
+  0% {
+    transform: rotate(0deg) translate(0px);
+  }
+  50% {
+    transform: rotate(-30deg) translate(0px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0px);
+  }
+}
